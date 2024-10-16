@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
         // Logic xác thực
         if (username == "admin" && password == "admin") // Thay thế bằng logic thực tế
         {
-            DisplayAlert("Thành công", "Đăng nhập thành công!", "OK");
+            DisplayAlert("Thành công", "Đăng nhập thành cônggggggggggg!", "OK");
             // Thực hiện điều hướng hoặc xử lý tiếp theo
             // await Navigation.PushAsync(new MainAppPage());
         }
