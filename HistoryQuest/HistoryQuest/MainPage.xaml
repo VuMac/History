@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.MainPage">
+    
+    
+    <StackLayout Padding="20" VerticalOptions="Center">
+        <!-- Tiêu đề -->
+        <Label Text="C# Maui" 
+               FontSize="28" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" 
+               Margin="0,0,0,30"
+               TextColor="#333333"/>
+
+        <!-- Nhãn và Trường Nhập Tên Đăng Nhập -->
+        <Label Text="Tên đăng nhập" FontSize="18" TextColor="#555555"/>
+        <Entry x:Name="UsernameEntry" 
+               Placeholder="Nhập tên đăng nhập" 
+               Margin="0,0,0,10" 
+               BackgroundColor="White" 
+               TextColor="#333333"
+               />
+
+        <!-- Nhãn và Trường Nhập Mật Khẩu -->
+        <Label Text="Mật khẩu" FontSize="18" TextColor="#555555"/>
+        <Entry x:Name="PasswordEntry" 
+               Placeholder="Nhập mật khẩu" 
+               IsPassword="True" 
+               Margin="0,0,0,20" 
+               BackgroundColor="White" 
+               TextColor="#333333"
+              />
+
+        <!-- Nút Đăng Nhập -->
+        <Button x:Name="LoginButton"
+        Text="Đăng Nhập" 
+        Margin="0,0,0,10" 
+        BackgroundColor="#007ACC" 
+        TextColor="White" 
+        CornerRadius="5" 
+        HeightRequest="50"/>
+
+        <Button x:Name="RegisterButton" 
+        Text="Đăng Ký" 
+        BackgroundColor="#28A745" 
+        TextColor="White" 
+        CornerRadius="5" 
+        HeightRequest="50"/>
+        
+        
+        <Label Text=""
+               HeightRequest="20"/>
+    </StackLayout>
+
+</ContentPage>
