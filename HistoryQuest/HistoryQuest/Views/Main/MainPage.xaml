@@ -1,0 +1,87 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.Views.MainPage"
+             Title="Trang Chính"
+             BackgroundColor="#F0F0F5">
+
+    <ScrollView>
+        <StackLayout Padding="30" Spacing="20" VerticalOptions="CenterAndExpand">
+
+            <!-- Welcome Header -->
+            <Label Text="Xin chào đến với HistoryQuest!"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Chọn một hoạt động bên dưới để bắt đầu"
+                   FontSize="16"
+                   TextColor="#666"
+                   HorizontalOptions="Center" />
+
+            <!-- Learning Card -->
+            <Frame BackgroundColor="#4CAF50"
+                   CornerRadius="15"
+                   HeightRequest="150"
+                   HasShadow="True"
+                   Padding="20"
+                   VerticalOptions="CenterAndExpand">
+                <StackLayout>
+                    <Label Text="Vào học"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+
+                    <Label Text="Khám phá bài học lịch sử hấp dẫn!"
+                           FontSize="14"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+
+                    <Button Text="Bắt đầu"
+                            Command="{Binding OpenLessonCommand}"
+                            BackgroundColor="White"
+                            TextColor="#4CAF50"
+                            FontAttributes="Bold"
+                            HeightRequest="40"
+                            WidthRequest="120"
+                            HorizontalOptions="Center"
+                            CornerRadius="20"
+                            Margin="0,15,0,0" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Exam Card -->
+            <Frame BackgroundColor="#FF5722"
+                   CornerRadius="15"
+                   HeightRequest="150"
+                   HasShadow="True"
+                   Padding="20"
+                   VerticalOptions="CenterAndExpand">
+                <StackLayout>
+                    <Label Text="Vào thi"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+
+                    <Label Text="Kiểm tra kiến thức lịch sử của bạn!"
+                           FontSize="14"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+
+                    <Button Text="Bắt đầu"
+                            Command="{Binding OpenExamCommand}"
+                            BackgroundColor="White"
+                            TextColor="#FF5722"
+                            FontAttributes="Bold"
+                            HeightRequest="40"
+                            WidthRequest="120"
+                            HorizontalOptions="Center"
+                            CornerRadius="20"
+                            Margin="0,15,0,0" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

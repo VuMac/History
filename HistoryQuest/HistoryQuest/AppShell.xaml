@@ -1,14 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="HistoryQuest.AppShell"
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell 
+       x:Class="HistoryQuest.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:HistoryQuest"
+     xmlns:views="clr-namespace:HistoryQuest.Views"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage" />
+
+
+    <ShellContent
+        Title="Main"
+        ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+         Title="Lesson"
+        ContentTemplate="{DataTemplate views:LessonPage}"
+        Route="LessonPage" />
+
+    <ShellContent
+     Title="Lesson"
+    ContentTemplate="{DataTemplate views:LessonPage}"
+    Route="LessonPage" />
+
 
 </Shell>

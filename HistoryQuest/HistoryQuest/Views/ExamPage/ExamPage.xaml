@@ -1,0 +1,77 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.Views.ExamPage"
+             Title="Bài thi"
+             BackgroundColor="#F5F5F5">
+
+    <StackLayout Padding="20" Spacing="20">
+
+        <!-- Progress Bar -->
+        <ProgressBar x:Name="progressBar" Progress="{Binding Progress}"
+                     HeightRequest="8"
+                     BackgroundColor="#E0E0E0"
+                     ProgressColor="#4CAF50"
+                     HorizontalOptions="FillAndExpand" />
+
+        <!-- Question Number and Text -->
+        <Label Text="{Binding CurrentQuestionNumber}"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="#333"
+               HorizontalOptions="Center" />
+
+        <Label Text="{Binding CurrentQuestionText}"
+               FontSize="18"
+               TextColor="#555"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               Margin="0,10,0,0" />
+
+        <!-- Answer Options -->
+        <StackLayout x:Name="optionsStack" Spacing="10" Margin="0,20,0,0">
+            <!-- Each RadioButton is bound to a different option -->
+            <RadioButton GroupName="OptionsGroup"
+                         Content="{Binding CurrentOptions[0]}"
+                         IsChecked="{Binding CurrentQuestionSelectedOption, ConverterParameter=0, Mode=TwoWay}" />
+            <RadioButton GroupName="OptionsGroup"
+                         Content="{Binding CurrentOptions[1]}"
+                         IsChecked="{Binding CurrentQuestionSelectedOption, ConverterParameter=1, Mode=TwoWay}" />
+            <RadioButton GroupName="OptionsGroup"
+                         Content="{Binding CurrentOptions[2]}"
+                         IsChecked="{Binding CurrentQuestionSelectedOption, ConverterParameter=2, Mode=TwoWay}" />
+            <RadioButton GroupName="OptionsGroup"
+                         Content="{Binding CurrentOptions[3]}"
+                         IsChecked="{Binding CurrentQuestionSelectedOption, ConverterParameter=3, Mode=TwoWay}" />
+        </StackLayout>
+
+        <!-- Navigation Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
+            <Button Text="Câu trước"
+                    Command="{Binding PreviousQuestionCommand}"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="#333"
+                    WidthRequest="120"
+                    IsEnabled="{Binding IsPreviousButtonEnabled}" />
+
+            <Button Text="Câu tiếp theo"
+                    Command="{Binding NextQuestionCommand}"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    WidthRequest="120"
+                    IsEnabled="{Binding IsNextButtonEnabled}" />
+        </StackLayout>
+
+        <!-- Finish Exam Button -->
+        <Button Text="Kết thúc bài thi"
+                Command="{Binding FinishExamCommand}"
+                BackgroundColor="#FF5722"
+                TextColor="White"
+                FontAttributes="Bold"
+                HeightRequest="50"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsFinishButtonVisible}"
+                Margin="0,20,0,0" />
+
+    </StackLayout>
+</ContentPage>

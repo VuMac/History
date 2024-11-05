@@ -48,4 +48,51 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Remove="Views\RegisterPage\XMLFile1.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\ExamPage\ExamPage.xaml.cs">
+	    <DependentUpon>ExamPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\LessonPage\LessonPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Login\LoginPage.xaml.cs">
+	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Main\MainPage.xaml.cs">
+	    <DependentUpon>MainPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Register\RegisterPage.xaml.cs">
+	    <DependentUpon>RegisterPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Result\ResultPage.xaml.cs">
+	    <DependentUpon>ResultPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\ExamPage\ExamPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LessonPage\LessonPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Main\MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Register\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Result\ResultPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

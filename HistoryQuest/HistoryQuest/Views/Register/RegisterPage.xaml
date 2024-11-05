@@ -1,0 +1,46 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.Views.RegisterPage"
+             BackgroundColor="#F4F4F4"
+             Title="Đăng Ký">
+
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
+
+        <Label Text="Đăng Ký Tài Khoản" 
+               FontSize="28" 
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#3B5998" />
+
+        <Entry Placeholder="Tên đăng nhập" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black"
+               HeightRequest="50" 
+               HorizontalOptions="FillAndExpand" />
+
+        <Entry Placeholder="Email" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black" 
+               HeightRequest="50"
+               HorizontalOptions="FillAndExpand" />
+
+        <Entry Placeholder="Mật khẩu" 
+               IsPassword="True" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black"
+               HeightRequest="50"
+               HorizontalOptions="FillAndExpand" />
+
+        <Button Text="Đăng Ký" 
+                BackgroundColor="#4CAF50"
+                TextColor="White"
+                FontAttributes="Bold"
+                HeightRequest="50"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand" />
+
+    </VerticalStackLayout>
+</ContentPage>
