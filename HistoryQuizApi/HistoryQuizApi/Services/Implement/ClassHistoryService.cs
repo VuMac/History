@@ -31,6 +31,7 @@ namespace HistoryQuizApi.Services.Implement
             }
             var newClass = new ClassHistory
             {
+                id = new Guid(),
                 name = AddClassHistoryDto.name,
                 description = AddClassHistoryDto.description
 
