@@ -1,6 +1,7 @@
 ﻿using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Exchange.WebServices.Data;
@@ -14,9 +15,12 @@ namespace HistoryQuizApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly JwtService _jwtService;
+
+        public UserController(IUserService userService, JwtService jwtService)
         {
             _userService = userService;
+            _jwtService = jwtService;
         }
 
 
@@ -25,13 +29,21 @@ namespace HistoryQuizApi.Controllers
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
             var result = await _userService.AuthenticateUserAsync(loginDto);
+           
 
             if (!result.Success)
             {
                 return Unauthorized(result.Message); // Trả về 401 Unauthorized nếu thông tin không hợp lệ
             }
 
-            return Ok(new { message = "Đăng nhập thành công!", data = result.Data }); // Trả về thông tin đăng nhập thành công
+            var token = _jwtService.GenerateToken(loginDto.Username);
+            return Ok(new LoginResponse
+            {
+                Token = token,
+                Expiration = DateTime.UtcNow.AddMinutes(30),
+                data = result.Data
+
+            }); // Trả về thông tin đăng nhập thành công
         }
 
         // POST: api/user/register
@@ -52,6 +64,7 @@ namespace HistoryQuizApi.Controllers
 
         //api dùng để cập nhập thông tin cho user
         [HttpPut("update-info")]
+        [Authorize]
         public async Task<IActionResult> UpdateUserInfo([FromBody] UpdateInfoModel updateModel)
         {
             var result = await _userService.UpdateUserAsync(updateModel);
@@ -64,6 +77,7 @@ namespace HistoryQuizApi.Controllers
         
         // forget password
         [HttpPut("reset-password")]
+        [Authorize]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel resetModel)
         {
             var result = await _userService.ResetPasswordAsync(resetModel);

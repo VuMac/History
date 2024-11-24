@@ -16,10 +16,10 @@ namespace HistoryQuizApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.30")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("HistoryQuizApi.Models.Data.ClassHistory", b =>
                 {
@@ -40,6 +40,36 @@ namespace HistoryQuizApi.Migrations
                     b.ToTable("classHistory");
                 });
 
+            modelBuilder.Entity("HistoryQuizApi.Models.Data.Enrollment", b =>
+                {
+                    b.Property<int>("EnrollmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentId"));
+
+                    b.Property<Guid>("ClassHistoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EnrollmentId");
+
+                    b.HasIndex("ClassHistoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("enrollments");
+                });
+
             modelBuilder.Entity("HistoryQuizApi.Models.Data.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -47,18 +77,15 @@ namespace HistoryQuizApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
@@ -66,11 +93,9 @@ namespace HistoryQuizApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Region")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -80,6 +105,25 @@ namespace HistoryQuizApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("HistoryQuizApi.Models.Data.Enrollment", b =>
+                {
+                    b.HasOne("HistoryQuizApi.Models.Data.ClassHistory", "Class")
+                        .WithMany()
+                        .HasForeignKey("ClassHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HistoryQuizApi.Models.Data.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

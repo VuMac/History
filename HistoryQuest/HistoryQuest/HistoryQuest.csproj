@@ -55,6 +55,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+	  <PackageReference Include="SQLitePCL.plugin.sqlcipher.net45" Version="0.9.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -79,6 +80,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ClassList\ClassList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ExamPage\ExamPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,6 +1,7 @@
 ﻿using HistoryQuizApi.Services.Interface;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -12,6 +13,14 @@ public class ClassHistoryController : ControllerBase
     public ClassHistoryController(IClassHistoryService classService)
     {
         _classService = classService;
+    }
+
+    
+    [HttpGet("GetClassHistory")]
+    public async Task<ActionResult<ServiceResult>> GetListClass(int pageIndex,int pageSize)
+    { 
+            var result = await _classService.GetListClassAsync(Guid.Empty, pageIndex, pageSize);
+            return Ok(result);      
     }
 
     [HttpPost("Add")]

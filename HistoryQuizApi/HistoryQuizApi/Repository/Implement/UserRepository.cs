@@ -4,6 +4,7 @@ using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Generators;
+using System.Runtime.CompilerServices;
 
 namespace HistoryQuizApi.Repository.Implement
 {
@@ -35,9 +36,9 @@ namespace HistoryQuizApi.Repository.Implement
             return await _context.User.FirstOrDefaultAsync(u => u.Username == username);
         }
 
-        public Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User> GetUserByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            return await _context.User.FirstOrDefaultAsync(u => u.Username.Trim().Equals(username.Trim()));
         }
 
         public async Task<User> GetUserByIdAsync(Guid id)

@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Models.Data;
+﻿using HistoryQuizApi.Controllers.Result;
+using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -13,7 +14,6 @@ namespace HistoryQuizApi.Repository.Implement
         {
             _context = context;
         }
-
         public async Task AddClassHistoryAsync(ClassHistory classHistory)
         {
             _context.classHistory.Add(classHistory);
@@ -33,8 +33,6 @@ namespace HistoryQuizApi.Repository.Implement
             await _context.SaveChangesAsync();
         }
 
-        
-
         public Task<List<ClassHistory>> GetClassHistoryAsync()
         {
             throw new NotImplementedException();
@@ -45,6 +43,46 @@ namespace HistoryQuizApi.Repository.Implement
             throw new NotImplementedException();
         }
 
-       
+        public Task DeleteClassByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PagedResult<ClassHistory>> GetListClassAsync(Guid userId, int pageIndex, int pageSize)
+        {
+            try
+            {
+                var query = _context.classHistory;
+
+                // Đếm tổng số bản ghi
+                var totalRecords = await query.CountAsync();
+
+                // Phân trang
+                var items = await query.Skip((pageIndex - 1) * pageSize)
+                                       .Take(pageSize)
+                                       .ToListAsync();
+
+                // Kết quả phân trang
+                var result = new PagedResult<ClassHistory>
+                {
+                    TotalCount = totalRecords,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    Items = items
+                };
+
+                return result;
+            }
+            catch (Exception ex) {
+                return null;
+            }
+           
+         
+        }
+
+        public Task<PagedResult<ClassHistory>> GetListClassEnrollAsync(Guid userId, int pageIndex, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

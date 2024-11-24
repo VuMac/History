@@ -1,15 +1,52 @@
-
+﻿
 using HistoryQuizApi.Repository.Implement;
 using HistoryQuizApi.Repository.Interface;
 using HistoryQuizApi.Services.Implement;
 using HistoryQuizApi.Services.Interface;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Exchange.WebServices.Data;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Cấu hình Swagger
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "My API",
+        Version = "v1",
+        Description = "API for my app"
+    });
+});
+
+//cau hinh jwt
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+// Thêm Authorization
+builder.Services.AddAuthorization();
 
 
 //lay chuoi ket noi tu appseting.json
@@ -22,28 +59,34 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-// ??ng k� c�c service v� repository
+// dang ký các service và repository
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
 builder.Services.AddScoped<IClassHistoryRepository, ClassHistoryRepository>();
 builder.Services.AddScoped<IClassHistoryService, ClassHistoryService>();
+builder.Services.AddScoped<JwtService>();
+//
+//deploy lan network
+builder.WebHost.UseKestrel()
+               .UseUrls("https://0.0.0.0:5000"); // L?ng nghe trên t?t c? các IP và c?ng 5000
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Kích hoạt Swagger trong môi trường phát triển
+if (app.Environment.IsProduction())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); // Đảm bảo bạn gọi UseSwagger()
+
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+        options.RoutePrefix = "swagger"; // Chỉ định đường dẫn Swagger UI
+    });
 }
-
 app.UseHttpsRedirection();
-
+app.UseAuthorization();
+// Kích ho?t Authentication và Authorization middleware
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Models.Data;
+﻿using HistoryQuizApi.Controllers.Result;
+using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Repository.Interface;
 using HistoryQuizApi.Services.Interface;
 using HistoryQuizApi.Shared.DTO;
@@ -43,6 +44,12 @@ namespace HistoryQuizApi.Services.Implement
                 Success = true,
                 Message = "Thêm lớp học thành công"
             };
+        }
+
+        public async Task<PagedResult<ClassHistory>> GetListClassAsync(Guid userId, int pageIndex, int pageSize)
+        {
+            var query = await _ClassRepository.GetListClassAsync(userId, pageIndex, pageSize);
+            return query;           
         }
     } 
         

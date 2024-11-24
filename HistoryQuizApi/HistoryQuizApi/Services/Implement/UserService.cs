@@ -2,6 +2,7 @@
 using HistoryQuizApi.Repository.Interface;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Generators;
 using System.Threading.Tasks;
@@ -33,7 +34,9 @@ public class UserService : IUserService
         {
             Username = registrationDto.Username,
             Password = registrationDto.Password,  // Cần mã hóa password ở đây
-            Email = registrationDto.Email
+            Email = registrationDto.Email,
+            CreatedAt = DateTime.Now
+
         };
 
         // Lưu user vào cơ sở dữ liệu
@@ -48,6 +51,14 @@ public class UserService : IUserService
     {
         // Kiểm tra xem người dùng có tồn tại không
         var user = await _userRepository.GetUserByUsernameAsync(loginDto.Username);
+        if (user == null)
+        {
+            return new ServiceResult
+            {
+                Success = false,
+                Message = "Người dùng không tồn tại."
+            };
+        }
         // 
         if (user.Password.Equals(loginDto.Password))
         {
@@ -68,14 +79,7 @@ public class UserService : IUserService
             };
         }
 
-        if (user == null)
-        {
-            return new ServiceResult
-            {
-                Success = false,
-                Message = "Người dùng không tồn tại."
-            };
-        }
+        
 
 
     }

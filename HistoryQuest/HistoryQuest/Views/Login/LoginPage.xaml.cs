@@ -1,5 +1,11 @@
 ﻿namespace HistoryQuest.Views;
+using System.Text.Json;
+
+using System.Text;
 using System.Windows.Input;
+using HistoryQuest.Models;
+using HistoryQuest.HTTP;
+
 public partial class LoginPage : ContentPage
 {
     public LoginPage()
@@ -23,16 +29,61 @@ public partial class LoginPage : ContentPage
             await DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.", "OK");
             return;
         }
+        
+        // Tạo đối tượng chứa dữ liệu đăng nhập
+        var loginData = new
+        {
+            Username = username,
+            Password = password
+        };
+        var httpClient = new HttpClient(new CustomHttpClientHandler());
+        // Gửi yêu cầu đến API
+        
+            try
+            {
+                string apiUrl = "https://192.168.1.5:5000/api/User/login";
 
-        if (username == "admin" && password == "admin")  // Kiểm tra tài khoản mẫu
-        {
-            await DisplayAlert("Thành công", "Đăng nhập thành công!", "OK");
-            await Navigation.PushAsync(new Views.MainPage());  // Điều hướng sang trang chính
+                string json = JsonSerializer.Serialize(loginData);
+
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+              
+                if (response.IsSuccessStatusCode)
+                {
+                    // Đăng nhập thành công
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var result = JsonSerializer.Deserialize<LoginResponse>(responseBody);
+                    var data = JsonSerializer.Deserialize<UserResponse>(result.data.ToString());
+                //lưu token và id va cach lay
+                
+                Preferences.Set("token", result.Token);
+                Preferences.Set("userID", data.id.ToString());
+
+                /*var token = Preferences.Get("auth_token", string.Empty);
+                var userId = Preferences.Get("user_id", string.Empty);*/
+
+                await DisplayAlert("Thành công", "Đăng nhập thành công!", "OK");
+
+                // Chuyển sang trang chính
+                // Thiết lập MainPage làm root page
+                
+                Application.Current.MainPage = new NavigationPage(new Views.MainPage());
+            }
+                else
+                {
+                    // Thông báo lỗi nếu đăng nhập thất bại
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    await DisplayAlert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi kết nối hoặc lỗi hệ thống
+                await DisplayAlert("Lỗi", $"Đã xảy ra lỗi: {ex.Message}", "OK");
+            }
+        
+
         }
-        else
-        {
-            await DisplayAlert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.", "OK");
-        }
-    }
 
 }
