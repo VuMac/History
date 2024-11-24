@@ -40,7 +40,7 @@ namespace HistoryQuizApi.Controllers
             return Ok(new LoginResponse
             {
                 Token = token,
-                Expiration = DateTime.UtcNow.AddMinutes(30),
+                Expiration = DateTime.Now.AddDays(7),
                 data = result.Data
 
             }); // Trả về thông tin đăng nhập thành công

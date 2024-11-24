@@ -15,7 +15,7 @@ public class ClassHistoryController : ControllerBase
         _classService = classService;
     }
 
-    
+    [Authorize]
     [HttpGet("GetClassHistory")]
     public async Task<ActionResult<ServiceResult>> GetListClass(int pageIndex,int pageSize)
     { 

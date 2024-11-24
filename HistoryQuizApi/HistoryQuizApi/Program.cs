@@ -84,7 +84,7 @@ if (app.Environment.IsProduction())
     });
 }
 app.UseHttpsRedirection();
-app.UseAuthorization();
+
 // Kích ho?t Authentication và Authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
