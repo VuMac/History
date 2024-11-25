@@ -57,7 +57,7 @@ public partial class LoginPage : ContentPage
                     var data = JsonSerializer.Deserialize<UserResponse>(result.data.ToString());
                 //lưu token và id va cach lay
                 
-                Preferences.Set("token", result.Token);
+                Preferences.Set("tokenJWT", result.token);
                 Preferences.Set("userID", data.id.ToString());
 
                 /*var token = Preferences.Get("auth_token", string.Empty);
