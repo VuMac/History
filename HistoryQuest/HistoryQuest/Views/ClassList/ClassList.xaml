@@ -39,7 +39,7 @@
 
                                 <!-- Mô tả lớp học -->
                                 <Label Text="{Binding id}"
-                                       FontSize="14"
+                                       FontSize="14" 
                                        VerticalOptions="Start"
                                        HorizontalOptions="Start"
                                        TextColor="#777"
