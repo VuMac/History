@@ -16,12 +16,21 @@ public class ClassHistoryController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("GetClassHistory")]
-    public async Task<ActionResult<ServiceResult>> GetListClass(int pageIndex,int pageSize)
+    [HttpGet("GetClassHistoryEnroll")]
+    public async Task<ActionResult<ServiceResult>> GetListClass(string idUser)
     { 
-            var result = await _classService.GetListClassAsync(Guid.Empty, pageIndex, pageSize);
+            var result = await _classService.GetListClassEnrollAsync(Guid.Parse(idUser));
             return Ok(result);      
     }
+
+    [Authorize]
+    [HttpGet("GetClassHistoryNotEnroll")]
+    public async Task<ActionResult<ServiceResult>> GetListClassNotEnroll(string idUser)
+    {
+        var result = await _classService.GetListClassNotEnrollAsync(Guid.Parse(idUser));
+        return Ok(result);
+    }
+
 
     [HttpPost("Add")]
     public async Task<ActionResult<ServiceResult>> AddClass([FromBody] AddClassHistoryDto addClassHistoryDto)

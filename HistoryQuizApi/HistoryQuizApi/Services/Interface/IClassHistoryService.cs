@@ -8,7 +8,7 @@ namespace HistoryQuizApi.Services.Interface
     public interface IClassHistoryService
     {
         Task<ServiceResult> AddClassHistoryAsync(AddClassHistoryDto AddClassHistoryDto);
-        Task<PagedResult<ClassHistory>> GetListClassAsync(Guid userId, int pageIndex, int pageSize);
-
+        Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId);
+        Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId);
     }
 }

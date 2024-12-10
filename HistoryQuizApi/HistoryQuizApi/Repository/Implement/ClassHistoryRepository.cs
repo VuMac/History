@@ -80,9 +80,31 @@ namespace HistoryQuizApi.Repository.Implement
          
         }
 
-        public Task<PagedResult<ClassHistory>> GetListClassEnrollAsync(Guid userId, int pageIndex, int pageSize)
+       
+
+        Task<List<ClassHistory>> IClassHistoryRepository.GetListClassAsync(Guid userId, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId)
+        {
+            string sql = "select * from classHistory c " +
+                "where c.id in (select id from enrollments where userId = " + userId + " )";
+
+            var result = _context.classHistory.FromSqlRaw(sql).ToListAsync(); ;
+
+            return result;
+        }
+
+        public Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId)
+        {
+            string sql = "select * from classHistory c " +
+               "where c.id not in (select id from enrollments where userId = " + userId + " )";
+
+            var result = _context.classHistory.FromSqlRaw(sql).ToListAsync(); ;
+
+            return result;
         }
     }
 }

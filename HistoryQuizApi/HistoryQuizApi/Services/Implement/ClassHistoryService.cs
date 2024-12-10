@@ -46,10 +46,18 @@ namespace HistoryQuizApi.Services.Implement
             };
         }
 
-        public async Task<PagedResult<ClassHistory>> GetListClassAsync(Guid userId, int pageIndex, int pageSize)
+       
+
+        public async Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId)
         {
-            var query = await _ClassRepository.GetListClassAsync(userId, pageIndex, pageSize);
-            return query;           
+            var result = await _ClassRepository.GetListClassEnrollAsync(userId);
+            return result;
+        }
+
+        public async Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId)
+        {
+            var result = await _ClassRepository.GetListClassNotEnrollAsync(userId);
+            return result;
         }
     } 
         

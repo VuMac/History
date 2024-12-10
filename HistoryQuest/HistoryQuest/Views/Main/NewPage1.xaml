@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="HistoryQuest.Views.Main.NewPage1">
+    <!-- Menu bên trái -->
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu">
+            <ListView x:Name="MenuItemsList">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Home</x:String>
+                        <x:String>Settings</x:String>
+                    </x:Array>
+                </ListView.ItemsSource>
+            </ListView>
+        </ContentPage>
+    </FlyoutPage.Flyout>
+
+    <!-- Nội dung chính -->
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <ContentPage Title="Home">
+                    <StackLayout>
+                        <Label Text="Welcome to MAUI!" 
+                               VerticalOptions="CenterAndExpand" 
+                               HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>
