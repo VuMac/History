@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Services.Interface;
+﻿using HistoryQuizApi.Models.Data;
+using HistoryQuizApi.Services.Interface;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +52,21 @@ public class ClassHistoryController : ControllerBase
                 Success = false,
                 Message = "Lỗi server: " + ex.Message
             });
+        }
+    }
+
+    [Authorize]
+    [HttpPost("{classId}/lessons")]
+    public async Task<IActionResult> AddLessonToClass(Guid classId, Lesson lesson)
+    {
+        try
+        {
+            await _classService.AddLessonToClassAsync(classId, lesson);
+            return CreatedAtAction("GetClassById", new { id = classId }, lesson);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
         }
     }
 }

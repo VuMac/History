@@ -14,6 +14,28 @@ namespace HistoryQuizApi.Repository.Implement
         {
             _context = context;
         }
+
+        public async Task<IEnumerable<ClassHistory>> GetAllAsync()
+        {
+            return await _context.classHistory.Include(c => c.Lessons).ToListAsync();
+        }
+
+        public async Task<ClassHistory> GetByIdAsync(Guid id)
+        {
+            return await _context.classHistory.Include(c => c.Lessons)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task AddAsync(ClassHistory classHistory)
+        {
+            await _context.classHistory.AddAsync(classHistory);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddClassHistoryAsync(ClassHistory classHistory)
         {
             _context.classHistory.Add(classHistory);
@@ -24,7 +46,7 @@ namespace HistoryQuizApi.Repository.Implement
         public async Task<ClassHistory> GetClassByNameAsync(string className)
         {
             return await _context.classHistory
-                .FirstOrDefaultAsync(c => c.name == className);
+                .FirstOrDefaultAsync(c => c.Name == className);
         }
 
         public async Task AddClassAsync(ClassHistory classroom)
@@ -77,7 +99,6 @@ namespace HistoryQuizApi.Repository.Implement
                 return null;
             }
            
-         
         }
 
        

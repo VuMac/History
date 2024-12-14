@@ -4,6 +4,7 @@ using HistoryQuizApi.Repository.Interface;
 using HistoryQuizApi.Services.Interface;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace HistoryQuizApi.Services.Implement
@@ -58,6 +59,41 @@ namespace HistoryQuizApi.Services.Implement
         {
             var result = await _ClassRepository.GetListClassNotEnrollAsync(userId);
             return result;
+        }
+
+        public async Task<IEnumerable<ClassHistory>> GetAllAsync()
+        {
+            return await _context.classHistory.Include(c => c.Lessons).ToListAsync();
+        }
+
+        public async Task<ClassHistory> GetByIdAsync(Guid id)
+        {
+            return await _context.classHistory.Include(c => c.Lessons)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task AddAsync(ClassHistory classHistory)
+        {
+            await _context.classHistory.AddAsync(classHistory);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddLessonToClassAsync(Guid classId, Lesson lesson)
+        {
+            var classHistory = await _ClassRepository.GetByIdAsync(classId);
+            if (classHistory == null)
+            {
+                throw new ArgumentException("Class not found");
+            }
+
+            lesson.Id = Guid.NewGuid();
+            lesson.ClassHistoryId = classId;
+            await _ClassRepository.AddAsync(lesson);
+            await _ClassRepository.SaveChangesAsync();
         }
     } 
         

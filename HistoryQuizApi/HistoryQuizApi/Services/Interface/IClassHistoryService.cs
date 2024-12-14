@@ -10,5 +10,12 @@ namespace HistoryQuizApi.Services.Interface
         Task<ServiceResult> AddClassHistoryAsync(AddClassHistoryDto AddClassHistoryDto);
         Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId);
         Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId);
+        Task AddLessonToClassAsync(Guid classId, Lesson lesson);
+
+        Task<IEnumerable<ClassHistory>> GetAllAsync();
+        Task<ClassHistory> GetByIdAsync(Guid id);
+        Task AddAsync(ClassHistory classHistory);
+        Task SaveChangesAsync();
+
     }
 }

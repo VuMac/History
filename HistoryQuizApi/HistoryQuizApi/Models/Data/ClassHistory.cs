@@ -6,13 +6,18 @@ namespace HistoryQuizApi.Models.Data
 {
     public class ClassHistory
     {
-        // Khóa chính kiểu GUID
+        // Primary key
         [Required]
-        public Guid id { get; set; } 
+        public Guid Id { get; set; }
+
         [AllowNull]
-        public string name { get; set; }
+        public string Name { get; set; }
+
         [AllowNull]
-        public string description { get; set; }
+        public string Description { get; set; }
+
+        // Navigation property for related lessons
+        public ICollection<Lesson> Lessons { get; set; }
 
     }
 }
