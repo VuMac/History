@@ -1,13 +1,14 @@
 ﻿using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace HistoryQuizApi.Repository.Implement
 {
     public class SubmissionRepository : ISubmissionRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AppDbContext _context;
 
-        public SubmissionRepository(ApplicationDbContext context)
+        public SubmissionRepository(AppDbContext context)
         {
             _context = context;
         }

@@ -33,9 +33,9 @@ namespace HistoryQuizApi.Services.Implement
             }
             var newClass = new ClassHistory
             {
-                id = new Guid(),
-                name = AddClassHistoryDto.name,
-                description = AddClassHistoryDto.description
+                Id = new Guid(),
+                Name = AddClassHistoryDto.name,
+                Description = AddClassHistoryDto.description
 
             };
             await _ClassRepository.AddClassHistoryAsync(newClass);
@@ -84,16 +84,22 @@ namespace HistoryQuizApi.Services.Implement
 
         public async Task AddLessonToClassAsync(Guid classId, Lesson lesson)
         {
+            // Retrieve the ClassHistory entity
             var classHistory = await _ClassRepository.GetByIdAsync(classId);
             if (classHistory == null)
             {
-                throw new ArgumentException("Class not found");
+                throw new KeyNotFoundException($"Class with ID {classId} not found.");
             }
 
+            // Create a new Lesson associated with the Class
             lesson.Id = Guid.NewGuid();
             lesson.ClassHistoryId = classId;
-            await _ClassRepository.AddAsync(lesson);
-            await _ClassRepository.SaveChangesAsync();
+
+            // Use DbContext directly or ensure repository supports Lesson operations
+            await _context.Lessons.AddAsync(lesson);
+
+            // Persist changes
+            await _context.SaveChangesAsync();
         }
     } 
         
