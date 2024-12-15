@@ -22,6 +22,7 @@ namespace HistoryQuizApi.Models.Data
         public ClassHistory ClassHistory { get; set; }
 
         public Exam Exam { get; set; }
+        public ICollection<Submission> Submissions { get; set; }
 
 
     }

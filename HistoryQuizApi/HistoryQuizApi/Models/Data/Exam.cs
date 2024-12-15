@@ -19,5 +19,8 @@ namespace HistoryQuizApi.Models.Data
 
         // Navigation property for Lesson
         public Lesson Lesson { get; set; }
+
+        // Navigation property for Submissions
+        public ICollection<Submission> Submissions { get; set; }
     }
 }

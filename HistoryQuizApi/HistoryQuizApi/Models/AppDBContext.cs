@@ -9,11 +9,11 @@ public class AppDbContext : DbContext
     public DbSet<Enrollment> enrollments { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<Exam> Exams { get; set; }
+    public DbSet<Submission> Submissions { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configure relationships
         modelBuilder.Entity<Lesson>()
            .HasOne(l => l.ClassHistory)
            .WithMany(c => c.Lessons)
@@ -23,6 +23,11 @@ public class AppDbContext : DbContext
             .HasOne(l => l.Exam)
             .WithOne(e => e.Lesson)
             .HasForeignKey<Exam>(e => e.LessonId);
+
+        modelBuilder.Entity<Submission>()
+            .HasOne(s => s.Exam)
+            .WithMany(e => e.Submissions)
+            .HasForeignKey(s => s.ExamId);
     }
 
 }
