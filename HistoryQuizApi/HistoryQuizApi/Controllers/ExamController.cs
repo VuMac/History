@@ -1,4 +1,5 @@
 ﻿using HistoryQuizApi.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,14 +15,14 @@ namespace HistoryQuizApi.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllExams()
         {
             var exams = await _context.Exams.ToListAsync();
             return Ok(exams);
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetExamById(Guid id)
         {
@@ -32,7 +33,7 @@ namespace HistoryQuizApi.Controllers
             }
             return Ok(exam);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateExam(Exam exam)
         {
@@ -41,7 +42,7 @@ namespace HistoryQuizApi.Controllers
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetExamById), new { id = exam.Id }, exam);
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateExam(Guid id, Exam exam)
         {
@@ -66,7 +67,7 @@ namespace HistoryQuizApi.Controllers
 
             return NoContent();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExam(Guid id)
         {

@@ -1,5 +1,6 @@
 ﻿using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HistoryQuizApi.Controllers
@@ -14,14 +15,14 @@ namespace HistoryQuizApi.Controllers
         {
             _service = service;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllLessons()
         {
             var lessons = await _service.GetAllLessonsAsync();
             return Ok(lessons);
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetLessonById(Guid id)
         {
@@ -31,7 +32,7 @@ namespace HistoryQuizApi.Controllers
 
             return Ok(lesson);
         }
-
+        [Authorize]
         [HttpPost("{lessonId}/exam")]
         public async Task<IActionResult> AddExamToLesson(Guid lessonId, Exam exam)
         {

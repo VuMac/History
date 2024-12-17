@@ -35,6 +35,9 @@ public class UserService : IUserService
             Username = registrationDto.Username,
             Password = registrationDto.Password,  // Cần mã hóa password ở đây
             Email = registrationDto.Email,
+            PhoneNumber = registrationDto.PhoneNumber,
+            City = registrationDto.City,
+            Region = registrationDto.Region,
             CreatedAt = DateTime.Now
 
         };

@@ -1,5 +1,6 @@
 ﻿using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HistoryQuizApi.Controllers
@@ -14,21 +15,21 @@ namespace HistoryQuizApi.Controllers
         {
             _service = service;
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SubmitExam(Submission submission)
         {
             await _service.SubmitExamAsync(submission);
             return CreatedAtAction(nameof(GetSubmissionById), new { id = submission.Id }, submission);
         }
-
+        [Authorize]
         [HttpGet("exam/{examId}")]
         public async Task<IActionResult> GetSubmissionsForExam(Guid examId)
         {
             var submissions = await _service.GetSubmissionsForExamAsync(examId);
             return Ok(submissions);
         }
-
+        [Authorize]
         [HttpPatch("{submissionId}/grade")]
         public async Task<IActionResult> GradeSubmission(Guid submissionId, [FromBody] decimal grade)
         {
@@ -42,7 +43,7 @@ namespace HistoryQuizApi.Controllers
                 return NotFound(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSubmissionById(Guid id)
         {

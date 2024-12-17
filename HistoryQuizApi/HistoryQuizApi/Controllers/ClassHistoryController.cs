@@ -32,7 +32,7 @@ public class ClassHistoryController : ControllerBase
         return Ok(result);
     }
 
-
+    [Authorize]
     [HttpPost("Add")]
     public async Task<ActionResult<ServiceResult>> AddClass([FromBody] AddClassHistoryDto addClassHistoryDto)
     {
