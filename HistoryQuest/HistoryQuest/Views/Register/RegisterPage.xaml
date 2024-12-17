@@ -12,21 +12,14 @@
                HorizontalOptions="Center"
                TextColor="#3B5998" />
 
-        <Entry Placeholder="Tên đăng nhập" 
+        <Entry x:Name="usernameEntry" Placeholder="Tên đăng nhập" 
                PlaceholderColor="Gray"
                BackgroundColor="White" 
                TextColor="Black"
                HeightRequest="50" 
                HorizontalOptions="FillAndExpand" />
 
-        <Entry Placeholder="Email" 
-               PlaceholderColor="Gray"
-               BackgroundColor="White" 
-               TextColor="Black" 
-               HeightRequest="50"
-               HorizontalOptions="FillAndExpand" />
-
-        <Entry Placeholder="Mật khẩu" 
+        <Entry   x:Name="passwordEntry" Placeholder="Mật khẩu" 
                IsPassword="True" 
                PlaceholderColor="Gray"
                BackgroundColor="White" 
@@ -34,13 +27,21 @@
                HeightRequest="50"
                HorizontalOptions="FillAndExpand" />
 
+        <Entry  x:Name="emailEntry" Placeholder="Email" 
+        PlaceholderColor="Gray"
+        BackgroundColor="White" 
+        TextColor="Black" 
+        HeightRequest="50"
+        HorizontalOptions="FillAndExpand" />
+
         <Button Text="Đăng Ký" 
-                BackgroundColor="#4CAF50"
-                TextColor="White"
-                FontAttributes="Bold"
-                HeightRequest="50"
-                CornerRadius="10"
-                HorizontalOptions="FillAndExpand" />
+        BackgroundColor="#4CAF50"
+        TextColor="White"
+        FontAttributes="Bold"
+        HeightRequest="50"
+        CornerRadius="10"
+        HorizontalOptions="FillAndExpand"
+        Clicked="OnRegisterButtonClicked" />
 
     </VerticalStackLayout>
 </ContentPage>

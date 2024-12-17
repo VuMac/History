@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HistoryQuizApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/lesson")]
     public class LessonController : ControllerBase
     {
         private readonly ILessonService _service;
@@ -21,6 +21,16 @@ namespace HistoryQuizApi.Controllers
         {
             var lessons = await _service.GetAllLessonsAsync();
             return Ok(lessons);
+        }
+
+        [Authorize]
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateLessons(LessonRequest lesson)
+        {
+            string a = "";
+            var data = await _service.CreateLessonAsync(lesson);
+
+            return Ok(data);
         }
         [Authorize]
         [HttpGet("{id}")]

@@ -3,19 +3,35 @@
 namespace HistoryQuizApi.Models.Data
 {
     // Entity Lesson
+
+    public class LessonRequest
+    {
+        // Primary key
+
+        public Guid Id { get; set; }
+
+
+        public string Title { get; set; }
+
+        public string Content { get; set; }
+
+        public Guid ClassHistoryId { get; set; }
+ 
+
+    }
     public class Lesson
     {
         // Primary key
-        [Required]
+
         public Guid Id { get; set; }
 
-        [Required]
+
         public string Title { get; set; }
 
         public string Content { get; set; }
 
         // Foreign key for ClassHistory
-        [Required]
+
         public Guid ClassHistoryId { get; set; }
 
         // Navigation property for ClassHistory

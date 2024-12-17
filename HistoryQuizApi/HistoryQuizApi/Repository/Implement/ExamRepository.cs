@@ -1,9 +1,10 @@
 ﻿using HistoryQuizApi.Models.Data;
+using HistoryQuizApi.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace HistoryQuizApi.Repository.Implement
 {
-    public class ExamRepository
+    public class ExamRepository : IExamRepository
     {
         private readonly AppDbContext _context;
 

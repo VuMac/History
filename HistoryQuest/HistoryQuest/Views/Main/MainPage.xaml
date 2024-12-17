@@ -27,7 +27,8 @@
         <CollectionView x:Name="ClassListView"
                         ItemsSource="{Binding Classes}"
                         BackgroundColor="White"
-                        SelectionMode="Single">
+                        SelectionMode="Single"
+                        SelectionChanged="OnClassSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="10"

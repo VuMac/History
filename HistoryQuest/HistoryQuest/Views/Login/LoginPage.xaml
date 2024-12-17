@@ -42,15 +42,15 @@
                    FontSize="16" 
                    TextColor="Black" />
 
-            <Label Text="Đăng ký ngay!"
+            <Button Text="Đăng ký ngay!"
                    FontSize="16"
                    TextColor="Blue"
                    FontAttributes="Bold"
-                   Margin="5,0,0,0">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RegisterCommand}" />
-                </Label.GestureRecognizers>
-            </Label>
+                  Margin="5,0,0,0"
+                  Clicked="OnRegisterButtonClicked">
+
+            </Button>
+
         </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

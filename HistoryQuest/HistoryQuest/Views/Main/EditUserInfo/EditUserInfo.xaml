@@ -1,0 +1,100 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.Views.Main.EditUserInfo.EditUserInfo"
+             Title="Sửa Thông Tin">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+
+            <Button Text="← Quay lại" 
+                HorizontalOptions="Start" 
+                Clicked="OnBackButtonClicked" 
+                BackgroundColor="Transparent"
+                TextColor="Blue"/>
+
+            <!-- Tiêu đề -->
+            <Label Text="Chỉnh sửa thông tin cá nhân"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#333" />
+
+            <!-- Ảnh đại diện -->
+            <StackLayout HorizontalOptions="Center" Margin="0,20,0,20">
+                <Image x:Name="ProfileImage"
+                       Source="default_avatar.png"
+                       HeightRequest="120"
+                       WidthRequest="120"
+                       Aspect="AspectFill"
+                       BackgroundColor="#D9D9D9"
+                      
+                       HorizontalOptions="Center" />
+                <Button Text="Chọn ảnh"
+                        FontSize="16"
+                        BackgroundColor="#007AFF"
+                        TextColor="White"
+                        Padding="10"
+                        CornerRadius="10"
+                        HorizontalOptions="Center"
+                        Clicked="OnChangePhotoClicked" />
+            </StackLayout>
+
+            <!-- Trường nhập: Họ và tên -->
+            <Entry x:Name="NameEntry"
+                   Placeholder="Họ và tên"
+                   FontSize="18"
+                   TextColor="#333"
+                   BackgroundColor="#F5F5F5"
+                   HeightRequest="50"
+                   Margin="0,10,0,0"
+                   PlaceholderColor="#999"
+                   Text="{Binding Name}" />
+
+            <!-- Trường nhập: Email -->
+            <Entry x:Name="EmailEntry"
+                   Placeholder="Email"
+                   FontSize="18"
+                   TextColor="#333"
+                   BackgroundColor="#F5F5F5"
+                   HeightRequest="50"
+                   Keyboard="Email"
+                   Margin="0,10,0,0"
+                   PlaceholderColor="#999"
+                   Text="{Binding Email}" />
+
+            <!-- Trường nhập: Tuổi -->
+            <Entry x:Name="AgeEntry"
+                   Placeholder="Tuổi"
+                   FontSize="18"
+                   TextColor="#333"
+                   BackgroundColor="#F5F5F5"
+                   HeightRequest="50"
+                   Keyboard="Numeric"
+                   Margin="0,10,0,0"
+                   PlaceholderColor="#999"
+                   Text="{Binding Age}" />
+
+            <!-- Trường nhập: Địa chỉ -->
+            <Editor x:Name="AddressEditor"
+                    Placeholder="Địa chỉ"
+                    FontSize="18"
+                    TextColor="#333"
+                    BackgroundColor="#F5F5F5"
+                    HeightRequest="100"
+                    Margin="0,10,0,0"
+                    PlaceholderColor="#999"
+                    Text="{Binding Address}" />
+
+            <!-- Nút Lưu -->
+            <Button Text="Lưu thông tin"
+                    FontSize="18"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Padding="10"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="OnSaveButtonClicked" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

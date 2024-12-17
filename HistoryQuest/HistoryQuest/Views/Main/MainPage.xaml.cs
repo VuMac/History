@@ -31,4 +31,15 @@ public partial class MainPage : ContentPage
         // Xử lý sự kiện khi nhấn nút "+"
         Navigation.PushAsync(new Views.ClassList.ClassList());
     }
+    private void OnClassSelected(object sender, SelectionChangedEventArgs e)
+    {
+        // Kiểm tra lớp học được chọn
+        var selectedClass = e.CurrentSelection.FirstOrDefault() as string;
+        if (selectedClass != null)
+        {
+            // Đặt HomeFlyoutPage làm trang chính của ứng dụng
+            Application.Current.MainPage = new Views.Main.HomePage();
+        }
+    }
+
 }

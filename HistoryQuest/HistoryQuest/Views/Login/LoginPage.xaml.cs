@@ -14,11 +14,14 @@ public partial class LoginPage : ContentPage
         BindingContext = this;
     }
 
-    public Command RegisterCommand => new Command(async () =>
+    //public Command RegisterCommand => new Command(async () =>
+    //{
+    //    await Navigation.PushAsync(new Views.RegisterPage());
+    //});
+    public void OnRegisterButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Views.RegisterPage());
-    });
-
+        Application.Current.MainPage = new NavigationPage(new Views.RegisterPage());
+    }
     private async void OnLoginButtonClicked(object sender, EventArgs e)
     {
         string username = usernameEntry.Text;
@@ -29,7 +32,7 @@ public partial class LoginPage : ContentPage
             await DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.", "OK");
             return;
         }
-        
+
         // Tạo đối tượng chứa dữ liệu đăng nhập
         var loginData = new
         {
@@ -38,25 +41,25 @@ public partial class LoginPage : ContentPage
         };
         var httpClient = new HttpClient(new CustomHttpClientHandler());
         // Gửi yêu cầu đến API
-        
-            try
+
+        try
+        {
+            string apiUrl = "https://192.168.1.3:5000/api/User/login";
+
+            string json = JsonSerializer.Serialize(loginData);
+
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+
+            if (response.IsSuccessStatusCode)
             {
-                string apiUrl = "https://192.168.1.5:5000/api/User/login";
-
-                string json = JsonSerializer.Serialize(loginData);
-
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
-              
-                if (response.IsSuccessStatusCode)
-                {
-                    // Đăng nhập thành công
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    var result = JsonSerializer.Deserialize<LoginResponse>(responseBody);
-                    var data = JsonSerializer.Deserialize<UserResponse>(result.data.ToString());
+                // Đăng nhập thành công
+                string responseBody = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<LoginResponse>(responseBody);
+                var data = JsonSerializer.Deserialize<UserResponse>(result.data.ToString());
                 //lưu token và id va cach lay
-                
+
                 Preferences.Set("tokenJWT", result.token);
                 Preferences.Set("userID", data.id.ToString());
 
@@ -67,23 +70,23 @@ public partial class LoginPage : ContentPage
 
                 // Chuyển sang trang chính
                 // Thiết lập MainPage làm root page
-                
+
                 Application.Current.MainPage = new NavigationPage(new Views.MainPage());
             }
-                else
-                {
-                    // Thông báo lỗi nếu đăng nhập thất bại
-                    string errorMessage = await response.Content.ReadAsStringAsync();
-                    await DisplayAlert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.", "OK");
-                }
-            }
-            catch (Exception ex)
+            else
             {
-                // Xử lý lỗi kết nối hoặc lỗi hệ thống
-                await DisplayAlert("Lỗi", $"Đã xảy ra lỗi: {ex.Message}", "OK");
+                // Thông báo lỗi nếu đăng nhập thất bại
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                await DisplayAlert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.", "OK");
             }
-        
-
         }
+        catch (Exception ex)
+        {
+            // Xử lý lỗi kết nối hoặc lỗi hệ thống
+            await DisplayAlert("Lỗi", $"Đã xảy ra lỗi: {ex.Message}", "OK");
+        }
+
+
+    }
 
 }

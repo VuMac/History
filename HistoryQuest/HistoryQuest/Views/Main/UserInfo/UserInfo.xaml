@@ -1,0 +1,84 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.Views.Main.UserInfo"
+             Title="Thông Tin Người Dùng"
+             BackgroundColor="#FFFFFF">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+
+            <!-- Khung thông tin người dùng -->
+            <Frame CornerRadius="15" BackgroundColor="#F0F0F0" Padding="15" HasShadow="True">
+                <StackLayout Spacing="10" HorizontalOptions="Center">
+
+                    <!-- Ảnh đại diện -->
+                    <Image Source="user_avatar_placeholder.png"
+                           HeightRequest="120"
+                           WidthRequest="120"
+                           HorizontalOptions="Center"
+                           Aspect="AspectFill"
+                           Margin="0,10,0,20" 
+                           BackgroundColor="#D9D9D9"
+                            />
+
+                    <!-- Họ và Tên -->
+                    <Label Text="John Doe"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" 
+                           TextColor="#333" />
+
+                    <!-- Email -->
+                    <Label Text="johndoe@example.com"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           TextColor="#666" />
+
+                </StackLayout>
+            </Frame>
+
+            <!-- Khung hiển thị chi tiết -->
+            <Frame CornerRadius="15" BackgroundColor="#FFFFFF" Padding="15" HasShadow="True" BorderColor="#E0E0E0">
+                <StackLayout Spacing="15">
+
+                    <!-- Tuổi -->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Tuổi:"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#333"
+                               WidthRequest="80" />
+                        <Label Text="25"
+                               FontSize="18"
+                               TextColor="#666" />
+                    </StackLayout>
+
+                    <!-- Địa chỉ -->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Địa chỉ:"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#333"
+                               WidthRequest="80" />
+                        <Label Text="123 Đường ABC, TP.HCM"
+                               FontSize="18"
+                               TextColor="#666" />
+                    </StackLayout>
+
+                </StackLayout>
+            </Frame>
+
+            <!-- Nút chỉnh sửa -->
+            <Button Text="Chỉnh sửa thông tin"
+                    FontSize="18"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Padding="10"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="End"
+                    Clicked="OnEditButtonClicked" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

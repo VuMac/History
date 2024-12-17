@@ -65,6 +65,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IClassHistoryRepository, ClassHistoryRepository>();
 builder.Services.AddScoped<IClassHistoryService, ClassHistoryService>();
+builder.Services.AddScoped<ILessonService, LessonService>();
+builder.Services.AddScoped<ILessonRepository, LessonRepository>();
+builder.Services.AddScoped<IExamRepository, ExamRepository>();
+
 builder.Services.AddScoped<JwtService>();
 //
 //deploy lan network

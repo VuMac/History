@@ -1,4 +1,5 @@
-﻿using HistoryQuest.Views.Main;
+﻿using HistoryQuest.Views;
+using HistoryQuest.Views.Main;
 
 namespace HistoryQuest;
 
@@ -7,6 +8,6 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        MainPage = new NewPage1();
+        MainPage = new LoginPage();
     }
 }

@@ -25,10 +25,16 @@ namespace HistoryQuizApi.Services.Implement
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task CreateLessonAsync(Lesson lesson)
+        public async Task<Boolean> CreateLessonAsync(LessonRequest lesson)
         {
-            await _repository.AddAsync(lesson);
+            var data = new Lesson();
+            data.Id = Guid.NewGuid();
+            data.ClassHistoryId = lesson.ClassHistoryId;
+            data.Title = lesson.Title;
+            data.Content = lesson.Content;
+            await _repository.AddAsync(data);
             await _repository.SaveChangesAsync();
+            return true;
         }
 
         public async Task UpdateLessonAsync(Lesson lesson)
