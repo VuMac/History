@@ -101,11 +101,24 @@ namespace HistoryQuizApi.Repository.Implement
            
         }
 
-       
 
-        Task<List<ClassHistory>> IClassHistoryRepository.GetListClassAsync(Guid userId, int pageIndex, int pageSize)
+
+        async Task<List<ClassHistory>> IClassHistoryRepository.GetListClassAsync(int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            // Validate input parameters
+            if (pageIndex < 0) throw new ArgumentException("Page index cannot be negative.", nameof(pageIndex));
+            if (pageSize <= 0) throw new ArgumentException("Page size must be greater than zero.", nameof(pageSize));
+
+
+            // Query all data from ClassHistories
+            var query = _context.classHistory;
+
+            // Apply pagination
+            var result = await query.Skip(pageIndex * pageSize)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+
+            return result;
         }
 
         public Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId)

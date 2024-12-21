@@ -16,6 +16,7 @@ namespace HistoryQuizApi.Services.Interface
         Task<ClassHistory> GetByIdAsync(Guid id);
         Task AddAsync(ClassHistory classHistory);
         Task SaveChangesAsync();
+        Task<List<ClassHistory>> GetAll(int index,int size);
 
     }
 }

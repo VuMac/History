@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using HistoryQuest.Models;
 using System.Diagnostics;
 using HistoryQuest.Utility;
+using System.Net;
 
 namespace HistoryQuest.Views
 {
@@ -33,8 +34,15 @@ namespace HistoryQuest.Views
             string Username = usernameEntry.Text;
             string Password = passwordEntry.Text;
             string Email = emailEntry.Text;
+            string Address = AddressEntry.Text;
+            string PhoneNumber = phoneNumberEntry.Text;
+            string City = cityEntry.Text;
+            string Region = regionEntry.Text;
+            
 
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password) ||
+        string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(PhoneNumber) ||
+        string.IsNullOrWhiteSpace(City) || string.IsNullOrWhiteSpace(Region) || string.IsNullOrWhiteSpace(Address))
             {
                 await DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ tên đăng nhập, email và mật khẩu.", "OK");
                 return;
@@ -45,20 +53,31 @@ namespace HistoryQuest.Views
             {
                 Username,
                 Password,
-                Email
+                Email,
+                Address,
+                PhoneNumber,
+                City,
+                Region
             };
 
             var httpClient = new HttpClient(new CustomHttpClientHandler());
             try
             {
-                string apiUrl = "https://192.168.1.3:5000/api/User/register"; // API đăng ký
+                string apiUrl = "https://192.168.1.6:5000/api/User/register"; // API đăng ký
 
                 string json = JsonSerializer.Serialize(registerData);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Gửi yêu cầu POST
-                HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
-
+                var response = await httpClient.PostAsync(apiUrl, content);
+                if(response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine(response.Content);
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
                 // In ra mã trạng thái và nội dung phản hồi
                 Debug.WriteLine($"[API Request] URL: {apiUrl}");
                 Debug.WriteLine($"[Request Body] {json}");

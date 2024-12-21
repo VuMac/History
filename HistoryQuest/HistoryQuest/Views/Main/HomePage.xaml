@@ -24,12 +24,66 @@
     <FlyoutPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <ContentPage Title="Home">
-                    <StackLayout>
-                        <Label Text="Welcome to MAUI123!" 
-                               VerticalOptions="CenterAndExpand" 
-                               HorizontalOptions="CenterAndExpand" />
-                    </StackLayout>
+                <ContentPage Title="Trang Thi Lịch Sử">
+                    <ScrollView>
+                        <StackLayout Padding="20" Spacing="20">
+
+                            <!-- Tiêu đề -->
+                            <Label Text="Thi Lịch Sử Việt Nam"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   TextColor="#333" />
+
+                            <!-- Mô tả -->
+                            <Label Text="Chọn một bài thi để kiểm tra kiến thức lịch sử của bạn."
+                                   FontSize="16"
+                                   TextColor="#666"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center" />
+
+                            <!-- Danh sách bài thi -->
+                            <CollectionView x:Name="QuizCollectionView"
+                                            ItemsSource="{Binding QuizList}"
+                                            SelectionMode="None">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame BackgroundColor="White"
+                                               CornerRadius="10"
+                                               Padding="10"
+                                               Margin="5"
+                                               HasShadow="True">
+                                            <VerticalStackLayout>
+                                                <!-- Tên bài thi -->
+                                                <Label Text="{Binding Title}"
+                                                       FontSize="20"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#007AFF" />
+
+                                                <!-- Mô tả bài thi -->
+                                                <Label Text="{Binding Description}"
+                                                       FontSize="14"
+                                                       TextColor="#666"
+                                                       LineBreakMode="TailTruncation" />
+
+                                                <!-- Nút làm bài -->
+                                                <Button Text="Bắt đầu làm bài"
+                                                        FontSize="14"
+                                                        BackgroundColor="#007AFF"
+                                                        TextColor="White"
+                                                        CornerRadius="10"
+                                                        Padding="5"
+                                                        HorizontalOptions="End"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.StartQuizCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                            </VerticalStackLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                        </StackLayout>
+                    </ScrollView>
                 </ContentPage>
             </x:Arguments>
         </NavigationPage>

@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Name
+                </th>
+                <th>
+                  Description
+                </th>
+                <th class="text-right">
+                  Action
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let history of classHistories">
+                    <td>{{ history.name }}</td>
+                    <td>{{ history.description | date: 'short' }}</td>
+                  </tr>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  

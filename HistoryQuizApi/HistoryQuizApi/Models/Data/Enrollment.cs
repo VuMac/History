@@ -4,7 +4,7 @@ namespace HistoryQuizApi.Models.Data
 {
     public class Enrollment
     {
-        public int EnrollmentId { get; set; } // Mã ghi danh
+        public Guid EnrollmentId { get; set; } // Mã ghi danh
         public Guid UserId { get; set; } // Mã người dùng (liên kết với User)
         public Guid ClassHistoryId { get; set; } // Mã lớp học (liên kết với Class)
         public DateTime EnrollmentDate { get; set; } // Ngày ghi danh

@@ -110,6 +110,24 @@ namespace HistoryQuizApi.Repository.Implement
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> registerClassForuser(Guid idUser, Guid idClass)
+        {
+            try
+            {
+                Enrollment data = new Enrollment();
+                data.UserId = idUser;
+                data.ClassHistoryId = idClass;
+                data.EnrollmentDate = DateTime.Now;
+                data.EnrollmentId = Guid.NewGuid();
+                _context.enrollments.Add(data);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
     }
   
 }

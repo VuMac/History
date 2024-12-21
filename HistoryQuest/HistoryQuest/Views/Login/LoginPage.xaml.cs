@@ -18,9 +18,10 @@ public partial class LoginPage : ContentPage
     //{
     //    await Navigation.PushAsync(new Views.RegisterPage());
     //});
-    public void OnRegisterButtonClicked(object sender, EventArgs e)
+    public async void OnRegisterLabelTapped(object sender, EventArgs e)
     {
-        Application.Current.MainPage = new NavigationPage(new Views.RegisterPage());
+        // Điều hướng đến RegisterPage
+        await Application.Current.MainPage.Navigation.PushAsync(new Views.RegisterPage());
     }
     private async void OnLoginButtonClicked(object sender, EventArgs e)
     {
@@ -44,7 +45,7 @@ public partial class LoginPage : ContentPage
 
         try
         {
-            string apiUrl = "https://192.168.1.3:5000/api/User/login";
+            string apiUrl = "https://192.168.1.6:5000/api/User/login";
 
             string json = JsonSerializer.Serialize(loginData);
 

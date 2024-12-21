@@ -101,6 +101,12 @@ namespace HistoryQuizApi.Services.Implement
             // Persist changes
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<ClassHistory>> GetAll(int index, int size)
+        {
+            var result  = await _ClassRepository.GetListClassAsync(index,size);
+            return result;
+        }
     } 
         
 }

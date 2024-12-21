@@ -26,6 +26,17 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// Thêm dịch vụ CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Thay đổi nếu cần
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 //cau hinh jwt
 builder.Services.AddAuthentication(options =>
 {
@@ -68,6 +79,8 @@ builder.Services.AddScoped<IClassHistoryService, ClassHistoryService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
+builder.Services.AddScoped<ILessonCompletionRepository, LessonCompletionRepository>();
+builder.Services.AddScoped<ILessonCompletionService, LessonCompletionService>();
 
 builder.Services.AddScoped<JwtService>();
 //
@@ -94,5 +107,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors("AllowAngularApp");
 app.Run();

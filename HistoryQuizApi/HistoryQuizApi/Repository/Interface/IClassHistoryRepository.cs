@@ -8,7 +8,7 @@ namespace HistoryQuizApi.Repository.Interface
         Task AddClassHistoryAsync(ClassHistory classHistory);
         Task<ClassHistory> GetClassByNameAsync(string name);
         Task DeleteClassByNameAsync(string name);
-        Task<List<ClassHistory>> GetListClassAsync(Guid userId, int pageIndex, int pageSize);
+        Task<List<ClassHistory>> GetListClassAsync( int pageIndex, int pageSize);
         Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId);
         Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId);
 

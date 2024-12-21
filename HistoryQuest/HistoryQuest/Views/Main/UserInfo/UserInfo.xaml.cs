@@ -32,9 +32,11 @@ public partial class UserInfo : ContentPage
         // Bạn có thể sử dụng Data Binding nếu thích
     }
 
-    private async void OnEditButtonClicked(object sender, EventArgs e)
+    private void OnEditButtonClicked(object sender, EventArgs e)
     {
-        // Điều hướng đến trang chỉnh sửa thông tin cá nhân
-        await Navigation.PushAsync(new Views.Main.EditUserInfo.EditUserInfo());
+        // Điều hướng đến trang chỉnh sửa thông tin cá nhân bằng Application.Current.MainPage
+        Application.Current.MainPage = new Views.Main.EditUserInfo.EditUserInfo();
     }
+
+   
 }

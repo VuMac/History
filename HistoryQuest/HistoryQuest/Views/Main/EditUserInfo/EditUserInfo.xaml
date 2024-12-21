@@ -6,11 +6,7 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="20">
 
-            <Button Text="← Quay lại" 
-                HorizontalOptions="Start" 
-                Clicked="OnBackButtonClicked" 
-                BackgroundColor="Transparent"
-                TextColor="Blue"/>
+           
 
             <!-- Tiêu đề -->
             <Label Text="Chỉnh sửa thông tin cá nhân"
@@ -95,6 +91,14 @@
                     HorizontalOptions="FillAndExpand"
                     Clicked="OnSaveButtonClicked" />
 
+            <Button Text="Quay lại"
+                    FontSize="16"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="Black"
+                    CornerRadius="10"
+                    Padding="10"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="OnBackButtonClicked" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

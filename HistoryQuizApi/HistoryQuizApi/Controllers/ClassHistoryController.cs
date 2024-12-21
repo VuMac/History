@@ -24,6 +24,13 @@ public class ClassHistoryController : ControllerBase
             return Ok(result);      
     }
 
+    [HttpGet("GetAll")]
+    public async Task<ActionResult<ServiceResult>> GetAllListClass(int index,int size)
+    {
+        var result = await _classService.GetAll(index,size);
+        return Ok(result);
+    }
+
     [Authorize]
     [HttpGet("GetClassHistoryNotEnroll")]
     public async Task<ActionResult<ServiceResult>> GetListClassNotEnroll(string idUser)

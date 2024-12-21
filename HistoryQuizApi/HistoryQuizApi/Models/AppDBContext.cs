@@ -10,6 +10,8 @@ public class AppDbContext : DbContext
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<Exam> Exams { get; set; }
     public DbSet<Submission> Submissions { get; set; }
+
+    public DbSet<LessonCompletion> LessonCompletions { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,6 +30,14 @@ public class AppDbContext : DbContext
             .HasOne(s => s.Exam)
             .WithMany(e => e.Submissions)
             .HasForeignKey(s => s.ExamId);
+
+        modelBuilder.Entity<LessonCompletion>()
+        .HasKey(lc => lc.Id);
+
+        modelBuilder.Entity<LessonCompletion>()
+            .HasOne<Lesson>()
+            .WithMany()
+            .HasForeignKey(lc => lc.LessonId);
     }
 
 }

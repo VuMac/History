@@ -19,7 +19,7 @@
                HeightRequest="50" 
                HorizontalOptions="FillAndExpand" />
 
-        <Entry   x:Name="passwordEntry" Placeholder="Mật khẩu" 
+        <Entry x:Name="passwordEntry" Placeholder="Mật khẩu" 
                IsPassword="True" 
                PlaceholderColor="Gray"
                BackgroundColor="White" 
@@ -27,21 +27,54 @@
                HeightRequest="50"
                HorizontalOptions="FillAndExpand" />
 
-        <Entry  x:Name="emailEntry" Placeholder="Email" 
-        PlaceholderColor="Gray"
-        BackgroundColor="White" 
-        TextColor="Black" 
-        HeightRequest="50"
-        HorizontalOptions="FillAndExpand" />
+        <Entry x:Name="emailEntry" Placeholder="Email" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black" 
+               HeightRequest="50"
+               HorizontalOptions="FillAndExpand" />
+
+        <Entry x:Name="AddressEntry" Placeholder="Địa chỉ" 
+       PlaceholderColor="Gray"
+       BackgroundColor="White" 
+       TextColor="Black"
+       HeightRequest="50"
+       HorizontalOptions="FillAndExpand" />
+        
+
+        <!-- Thêm trường Số điện thoại -->
+        <Entry x:Name="phoneNumberEntry" Placeholder="Số điện thoại" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black"
+               Keyboard="Telephone"
+               HeightRequest="50"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Thêm trường Thành phố -->
+        <Entry x:Name="cityEntry" Placeholder="Thành phố" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black"
+               HeightRequest="50"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Thêm trường Vùng -->
+        <Entry x:Name="regionEntry" Placeholder="Vùng" 
+               PlaceholderColor="Gray"
+               BackgroundColor="White" 
+               TextColor="Black"
+               HeightRequest="50"
+               HorizontalOptions="FillAndExpand" />
 
         <Button Text="Đăng Ký" 
-        BackgroundColor="#4CAF50"
-        TextColor="White"
-        FontAttributes="Bold"
-        HeightRequest="50"
-        CornerRadius="10"
-        HorizontalOptions="FillAndExpand"
-        Clicked="OnRegisterButtonClicked" />
+                BackgroundColor="#4CAF50"
+                TextColor="White"
+                FontAttributes="Bold"
+                HeightRequest="50"
+                CornerRadius="10"
+                HorizontalOptions="FillAndExpand"
+                Clicked="OnRegisterButtonClicked" />
 
     </VerticalStackLayout>
 </ContentPage>

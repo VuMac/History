@@ -1,7 +1,67 @@
-﻿<!-- LessonPage.xaml -->
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HistoryQuest.Views.LessonPage"
-             Title="Bài Học">
-    <Label Text="Trang Bài Học" HorizontalOptions="Center" VerticalOptions="Center" FontSize="24"/>
+             Title="Bài Học"
+             BackgroundColor="#F4F4F4">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Tiêu đề chính -->
+            <Label Text="Các Bài Học Lịch Sử"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   HorizontalOptions="Center" />
+
+            <!-- Mô tả trang -->
+            <Label Text="Khám phá các bài học lịch sử thú vị dưới đây."
+                   FontSize="16"
+                   TextColor="#666"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Danh sách bài học -->
+            <CollectionView x:Name="LessonsCollectionView"
+                            ItemsSource="{Binding Lessons}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedLesson}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Padding="10"
+                               Margin="5"
+                               HasShadow="True">
+                            <VerticalStackLayout>
+                                <!-- Tên bài học -->
+                                <Label Text="{Binding Title}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#007AFF" />
+
+                                <!-- Mô tả ngắn -->
+                                <Label Text="{Binding Description}"
+                                       FontSize="14"
+                                       TextColor="#666"
+                                       LineBreakMode="TailTruncation" />
+
+                                <!-- Nút bắt đầu học -->
+                                <Button Text="Học Ngay"
+                                        FontSize="14"
+                                        BackgroundColor="#007AFF"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        Padding="5"
+                                        HorizontalOptions="End"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.StartLessonCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

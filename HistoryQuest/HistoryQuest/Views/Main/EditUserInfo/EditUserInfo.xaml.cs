@@ -43,9 +43,9 @@ public partial class EditUserInfo : ContentPage
         await Navigation.PopAsync();
     }
 
-    private async void OnBackButtonClicked(object sender, EventArgs e)
+    private void OnBackButtonClicked(object sender, EventArgs e)
     {
-        // Quay lại trang trước bằng PopModalAsync
-        await Navigation.PopModalAsync();
+        // Quay lại trang trước
+        Application.Current.MainPage = new Views.Main.HomePage(); // Thay bằng trang bạn muốn quay lại
     }
 }
