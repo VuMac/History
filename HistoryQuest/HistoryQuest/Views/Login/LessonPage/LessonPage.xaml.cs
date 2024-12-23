@@ -7,7 +7,10 @@ public partial class LessonPage : ContentPage
         InitializeComponent();
         //BindingContext = this;
     }
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync(); // Quay lại trang trước đó
+    }
 
-   
 
 }

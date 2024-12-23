@@ -89,10 +89,25 @@ namespace HistoryQuizApi.Controllers
             
         }
 
-        
+
+        //dang ky lop hoc
+        [HttpPost("register/class")]
+        public async Task<IActionResult> RegisterClass( Guid idUser,Guid idClass)
+        {
+            var result = await _userService.registerClassForUser(idUser,idClass);
+
+            if (!result)
+            {
+                return BadRequest("dang ky that bai");
+            }
+
+            return Ok(new { message = "Đăng ký thành công!" });
+        }
+
+
 
 
 
     }
-  
+
 }

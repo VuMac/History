@@ -1,36 +1,76 @@
-﻿using System.Collections.ObjectModel;
+﻿using HistoryQuest.Models;
+using System.Collections.ObjectModel;
+using System.Net.Http.Json;
 
 namespace HistoryQuest.Views;
 
 public partial class MainPage : ContentPage
 {
     public ObservableCollection<string> Classes { get; set; }
+
     public MainPage()
     {
         InitializeComponent();
-        BindingContext = new ViewModels.MainViewModels.MainViewModel();
-        // Danh sách lớp học giả lập
-        Classes = new ObservableCollection<string>
-            {
-                "Toán 101",
-                "Văn học 202",
-                "Lịch sử 303",
-                "Địa lý 404"
-            };
 
+        // Khởi tạo danh sách lớp học
+        Classes = new ObservableCollection<string>();
+
+        // Gán BindingContext
         BindingContext = this;
     }
 
-    private async void OnLogoutButtonClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        // Điều hướng về trang Login khi nhấn "Đăng xuất"s
-        await Navigation.PushAsync(new LoginPage());
+        base.OnAppearing();
+
+        // Gọi API để tải danh sách lớp học
+        await LoadClassesAsync("randomshit");
     }
+
+    private async Task LoadClassesAsync(string userId)
+    {
+        try
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            // URL API
+            string apiUrl = "https://192.168.1.6:5000/api/ClassHistory/GetClassHistoryEnroll?idUser=33F18F75-8056-4E5E-86EF-08DD203B9422";
+
+            // Gọi API
+            using var httpClient = new HttpClient(clientHandler);
+            var classList = await httpClient.GetFromJsonAsync<List<ClassHistoryResponse>>(apiUrl);
+
+            // Kiểm tra và hiển thị dữ liệu
+            if (classList != null)
+            {
+                // Xóa dữ liệu cũ trước khi thêm mới
+                Classes.Clear();
+
+                foreach (var classname in classList)
+                {
+                    Classes.Add(classname.Name); // Thêm tên lớp vào danh sách
+                }
+
+                // Gán danh sách lớp vào CollectionView (nếu cần)
+                ClassListView.ItemsSource = Classes;
+            }
+
+            Console.WriteLine("Done");
+        }
+        catch (Exception ex)
+        {
+            // Hiển thị thông báo lỗi nếu cần
+            await DisplayAlert("Lỗi", $"Không thể tải danh sách lớp học: {ex.Message}", "OK");
+        }
+    }
+
     private async void OnAddClassClicked(object sender, EventArgs e)
     {
         // Xử lý sự kiện khi nhấn nút "+"
-        Navigation.PushAsync(new Views.ClassList.ClassList());
+        await Navigation.PushAsync(new Views.ClassList.ClassList());
     }
+
     private void OnClassSelected(object sender, SelectionChangedEventArgs e)
     {
         // Kiểm tra lớp học được chọn
@@ -41,5 +81,4 @@ public partial class MainPage : ContentPage
             Application.Current.MainPage = new Views.Main.HomePage();
         }
     }
-
 }

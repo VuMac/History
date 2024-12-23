@@ -13,6 +13,8 @@ namespace HistoryQuizApi.Repository.Interface
         Task<User> GetUserByIdAsync(Guid id);
         Task UpdateUser(User u);
         Task<ServiceResult> ResetPasswordAsync(string token, string newPassword);
+
+        Task<bool> registerClassForuser(Guid idUser, Guid idClass);
         
     }
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HistoryQuizApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241221172317_RemoveDeletedTable")]
-    partial class RemoveDeletedTable
+    [Migration("20241223162130_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

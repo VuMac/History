@@ -9,5 +9,7 @@ public interface IUserService
     Task<ServiceResult> AuthenticateUserAsync(UserLoginDto loginDto);  // Thêm phương thức này
     Task<ServiceResult> UpdateUserAsync(UpdateInfoModel updateModel);
     Task<ServiceResult> ResetPasswordAsync(ResetPasswordModel resetModel);
+
+    Task<bool> registerClassForUser(Guid idUser, Guid idClass);
     
 }

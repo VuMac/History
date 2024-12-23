@@ -10,8 +10,7 @@
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Home</x:String>
                         <x:String>Thông Tin</x:String>
-                        <x:String>Bài học</x:String>
-                        <x:String>Bài thi</x:String>
+                        <x:String>Lớp Học</x:String>
                         <x:String >Đăng xuất </x:String> 
                     </x:Array>
                 </ListView.ItemsSource>
@@ -35,13 +34,7 @@
                                    HorizontalOptions="Center"
                                    TextColor="#333" />
 
-                            <!-- Mô tả -->
-                            <Label Text="Chọn một bài thi để kiểm tra kiến thức lịch sử của bạn."
-                                   FontSize="16"
-                                   TextColor="#666"
-                                   HorizontalOptions="Center"
-                                   HorizontalTextAlignment="Center" />
-
+                           
                             <!-- Danh sách bài thi -->
                             <CollectionView x:Name="QuizCollectionView"
                                             ItemsSource="{Binding QuizList}"

@@ -62,6 +62,17 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <!-- Nút quay lại -->
+            <Button Text="Quay Lại"
+                    FontSize="16"
+                    BackgroundColor="#FF3B30"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Padding="10"
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    Clicked="OnBackButtonClicked" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

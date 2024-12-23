@@ -6,7 +6,7 @@ public partial class EditUserInfo : ContentPage
     {
         InitializeComponent();
 
-        // Hiển thị thanh NavigationBar với nút "Back"
+        
        
     }
 

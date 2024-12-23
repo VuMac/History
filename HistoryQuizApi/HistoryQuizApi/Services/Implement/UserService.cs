@@ -139,4 +139,10 @@ public class UserService : IUserService
             return new ServiceResult { Success = false, Message = $"Lỗi khi đặt lại mật khẩu: {ex.Message}" };
         }
     }
+
+    public Task<bool> registerClassForUser(Guid idUser, Guid idClass)
+    {
+       
+        return _userRepository.registerClassForuser(idUser, idClass);
+    }
 }

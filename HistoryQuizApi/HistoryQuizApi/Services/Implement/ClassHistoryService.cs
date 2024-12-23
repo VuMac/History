@@ -51,8 +51,16 @@ namespace HistoryQuizApi.Services.Implement
 
         public async Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId)
         {
-            var result = await _ClassRepository.GetListClassEnrollAsync(userId);
-            return result;
+            try
+            {
+                var result = await _ClassRepository.GetListClassEnrollAsync(userId);
+                return result;
+            }
+            catch(Exception e)
+            {
+
+            }
+            return null;
         }
 
         public async Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId)
@@ -68,8 +76,9 @@ namespace HistoryQuizApi.Services.Implement
 
         public async Task<ClassHistory> GetByIdAsync(Guid id)
         {
-            return await _context.classHistory.Include(c => c.Lessons)
+            var queries = await _context.classHistory.Include(c => c.Lessons)
                 .FirstOrDefaultAsync(c => c.Id == id);
+            return queries;
         }
 
         public async Task AddAsync(ClassHistory classHistory)

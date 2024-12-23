@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HistoryQuizApi.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,8 +67,7 @@ namespace HistoryQuizApi.Migrations
                 name: "enrollments",
                 columns: table => new
                 {
-                    EnrollmentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnrollmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClassHistoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -105,6 +104,26 @@ namespace HistoryQuizApi.Migrations
                     table.PrimaryKey("PK_Exams", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Exams_Lessons_LessonId",
+                        column: x => x.LessonId,
+                        principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LessonCompletions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LessonCompletions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LessonCompletions_Lessons_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lessons",
                         principalColumn: "Id",
@@ -156,6 +175,11 @@ namespace HistoryQuizApi.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_LessonCompletions_LessonId",
+                table: "LessonCompletions",
+                column: "LessonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lessons_ClassHistoryId",
                 table: "Lessons",
                 column: "ClassHistoryId");
@@ -176,6 +200,9 @@ namespace HistoryQuizApi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "enrollments");
+
+            migrationBuilder.DropTable(
+                name: "LessonCompletions");
 
             migrationBuilder.DropTable(
                 name: "Submissions");

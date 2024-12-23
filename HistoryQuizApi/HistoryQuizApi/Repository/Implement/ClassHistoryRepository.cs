@@ -1,6 +1,7 @@
 ﻿using HistoryQuizApi.Controllers.Result;
 using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Repository.Interface;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -123,12 +124,29 @@ namespace HistoryQuizApi.Repository.Implement
 
         public Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId)
         {
-            string sql = "select * from classHistory c " +
-                "where c.id in (select id from enrollments where userId = " + userId + " )";
+            try
+            {
+                string sql = @"
+        SELECT * 
+        FROM classHistory c 
+        WHERE c.id IN (SELECT ClassHistoryId FROM enrollments WHERE userId = @userId)";
 
-            var result = _context.classHistory.FromSqlRaw(sql).ToListAsync(); ;
+                // Tạo SqlParameter
+                var userIdParam = new SqlParameter("@userId", userId);
 
-            return result;
+                // Truyền tham số vào truy vấn
+                var result = _context.classHistory
+                    .FromSqlRaw(sql, userIdParam)
+                    .ToListAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return null;
         }
 
         public Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId)

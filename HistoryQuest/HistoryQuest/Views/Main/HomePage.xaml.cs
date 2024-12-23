@@ -12,7 +12,7 @@ public partial class HomePage : FlyoutPage
         MenuItemsList.ItemSelected += OnMenuItemSelected;
     }
 
-    private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private async void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         if (e.SelectedItem == null) return;
 
@@ -28,18 +28,23 @@ public partial class HomePage : FlyoutPage
         {
             targetPage = new UserInfo(); // Trang thông tin người dùng
         }
-        else if (selectedItem == "Bài học")
+        else if (selectedItem == "Lớp Học")
         {
-            targetPage = new LessonPage(); // Trang bài học
-        }
-        else if (selectedItem == "Bài thi")
-        {
-            targetPage = new ExamPage(); // Trang bài thi
+            targetPage = new Views.ClassPage.ClassPage(); // Trang lớp học
         }
         else if (selectedItem == "Đăng xuất")
         {
-            // Xử lý logic đăng xuất
-            Application.Current.MainPage = new LoginPage();
+            bool confirmLogout = await DisplayAlert("Đăng xuất", "Bạn có chắc chắn muốn đăng xuất không?", "Có", "Không");
+            if (confirmLogout)
+            {
+                // Xử lý logic đăng xuất
+                SecureStorage.Remove("AuthToken"); // Xóa thông tin đăng nhập (ví dụ)
+                Application.Current.MainPage = new LoginPage(); // Điều hướng đến trang đăng nhập
+            }
+
+            // Đảm bảo đóng menu và bỏ chọn mục
+            IsPresented = false;
+            MenuItemsList.SelectedItem = null;
             return;
         }
 
@@ -54,6 +59,6 @@ public partial class HomePage : FlyoutPage
 
         // Bỏ chọn mục đã chọn
         MenuItemsList.SelectedItem = null;
-        
+
     }
 }

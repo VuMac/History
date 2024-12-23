@@ -120,7 +120,9 @@ namespace HistoryQuizApi.Repository.Implement
                 data.ClassHistoryId = idClass;
                 data.EnrollmentDate = DateTime.Now;
                 data.EnrollmentId = Guid.NewGuid();
+                data.Status = "ACTIVE";
                 _context.enrollments.Add(data);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

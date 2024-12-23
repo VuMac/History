@@ -1,0 +1,38 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HistoryQuest.Views.ClassPage.ClassPage"
+             BackgroundColor="#F4F4F4"
+             Title="Lớp học">
+
+    <StackLayout Padding="20" Spacing="20">
+
+        <Label Text="Lớp học" 
+               FontSize="28" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" />
+
+        <!-- Mô tả -->
+        <Label Text="Chọn mục bạn muốn truy cập:"
+               FontSize="16" 
+               TextColor="#666" 
+               HorizontalOptions="Center" />
+
+        <!-- Nút điều hướng đến Bài học -->
+        <Button Text="Bài học"
+                FontSize="18"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="10"
+                Clicked="OnLessonButtonClicked" />
+
+        <!-- Nút điều hướng đến Bài thi -->
+        <Button Text="Bài thi"
+                FontSize="18"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="10"
+                Clicked="OnExamButtonClicked" />
+    </StackLayout>
+
+
+</ContentPage>
