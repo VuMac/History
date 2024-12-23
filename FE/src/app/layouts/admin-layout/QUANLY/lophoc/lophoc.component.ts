@@ -21,6 +21,7 @@ export class LophocComponent implements OnInit {
   constructor(private apiService: ApiService,private modalService: NgbModal,private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.loadClassHistories();
   }
 
   /**
