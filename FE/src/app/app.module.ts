@@ -13,16 +13,22 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login/login.component'; // Import HttpClientModule
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Import NgbModule
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserAnimationsModule,
+    NgbModule, // Thêm vào imports
+    ReactiveFormsModule, // Thêm vào imports
     HttpClientModule, // Thêm HttpClientModule vào imports
 
     RouterModule.forRoot(AppRoutes,{

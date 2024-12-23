@@ -12,11 +12,12 @@ namespace HistoryQuizApi.Repository.Interface
         Task<List<ClassHistory>> GetListClassEnrollAsync(Guid userId);
         Task<List<ClassHistory>> GetListClassNotEnrollAsync(Guid userId);
 
-
+        Task<ClassHistory> UpdateClassHistory(ClassHistoryRequest name);
         Task<IEnumerable<ClassHistory>> GetAllAsync();
         Task<ClassHistory> GetByIdAsync(Guid id);
         Task AddAsync(ClassHistory classHistory);
         Task SaveChangesAsync();
+        Task<bool> DeleteById(Guid id);
 
     }
 }

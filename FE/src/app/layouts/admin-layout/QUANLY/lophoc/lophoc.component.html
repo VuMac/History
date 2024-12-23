@@ -19,14 +19,38 @@
                 </th>
               </thead>
               <tbody>
-                <tr *ngFor="let history of classHistories">
-                    <td>{{ history.name }}</td>
-                    <td>{{ history.description | date: 'short' }}</td>
-                  </tr>
-               
+                <tr *ngFor="let history of classHistories; trackBy: trackById">
+                  <td>{{ history.name }}</td>
+                  <td>{{ history.description }}</td>
+                  <td class="text-right">
+                    <button class="btn btn-sm btn-info mr-2" (click)="editHistory(history)">
+                      <i class="fas fa-edit"></i> Sửa
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteHistory(history.id)">
+                      <i class="fas fa-trash-alt"></i> Xóa
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
+           <!-- Điều hướng phân trang -->
+        <div class="pagination-controls mt-3 text-center">
+          <button
+            class="btn btn-secondary"
+            [disabled]="currentPage === 1"
+            (click)="changePage('prev')"
+          >
+            Trước
+          </button>
+          <span class="mx-3">Trang {{ currentPage }}</span>
+          <button
+            class="btn btn-secondary"
+            (click)="changePage('next')"
+          >
+            Tiếp
+          </button>
+        </div>
         </div>
       </div>
     </div>

@@ -158,5 +158,51 @@ namespace HistoryQuizApi.Repository.Implement
 
             return result;
         }
+
+        public async Task<ClassHistory> UpdateClassHistory(ClassHistoryRequest lophoc)
+        {
+            try
+            {
+                var a = _context.classHistory.FirstOrDefault(x => x.Id.Equals(lophoc.Id));
+                a.Name = lophoc.Name;
+                a.Description = lophoc.Description;
+                _context.classHistory.Update(a);
+                _context.SaveChangesAsync();
+                return a;
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
+        }
+
+        public async Task<bool> DeleteById(Guid id)
+        {
+            try
+            {
+                // Tìm đối tượng theo Id
+                var entity = await _context.classHistory.FirstOrDefaultAsync(x => x.Id == id);
+
+                // Kiểm tra nếu không tìm thấy
+                if (entity == null)
+                {
+                    return false; // Không tìm thấy đối tượng để xóa
+                }
+
+                // Xóa đối tượng
+                _context.classHistory.Remove(entity);
+
+                // Lưu thay đổi vào database
+                await _context.SaveChangesAsync();
+
+                return true; // Xóa thành công
+            }
+            catch (Exception e)
+            {
+                // Log lỗi (nếu cần thiết)
+                Console.WriteLine($"Error deleting record: {e.Message}");
+                return false; // Xóa thất bại
+            }
+        }
     }
 }
