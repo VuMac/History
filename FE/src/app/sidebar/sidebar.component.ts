@@ -19,8 +19,8 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },
     //code below
     { path: '/lophoc',         title: 'Quản lý lớp học',        icon:'nc-book-bookmark',    class: '' },
-    { path: '/users',         title: 'Quản lý học sinh',        icon:'nc-book-bookmark',    class: '' },
-    { path: '/lesson',         title: 'Quản lý bài học',        icon:'nc-book-bookmark',    class: '' },
+    // { path: '/users',         title: 'Quản lý học sinh',        icon:'nc-book-bookmark',    class: '' },
+    // { path: '/lesson',         title: 'Quản lý bài học',        icon:'nc-book-bookmark',    class: '' },
 ];
 
 @Component({

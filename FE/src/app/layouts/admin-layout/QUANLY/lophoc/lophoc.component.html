@@ -9,6 +9,9 @@
             <table class="table">
               <thead class=" text-primary">
                 <th>
+                  ID
+                </th>
+                <th>
                   Name
                 </th>
                 <th>
@@ -18,8 +21,9 @@
                   Action
                 </th>
               </thead>
-              <tbody>
+              <tbody *ngIf="classHistories.length > 0">
                 <tr *ngFor="let history of classHistories; trackBy: trackById">
+                  <td>{{ history.id }}</td>
                   <td>{{ history.name }}</td>
                   <td>{{ history.description }}</td>
                   <td class="text-right">
