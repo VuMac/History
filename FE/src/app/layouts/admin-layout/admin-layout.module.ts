@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -13,28 +13,36 @@ import { IconsComponent }           from '../../pages/icons/icons.component';
 import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
-import { NgxPaginationModule } from 'ngx-pagination'; // Import module phân trang
-
+import { ListQuestionScreenComponent } from '../../pages/list-question-screen/list-question-screen.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LophocComponent } from './QUANLY/lophoc/lophoc.component';
-import { EditHistoryModalComponent } from './QUANLY/lophoc/edit-history-modal/edit-history-modal.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import animations
-import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
-
+//primeng
+import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import { UploadFileExcelQuestionComponent } from 'app/pages/upload-file-excel-question/upload-file-excel-question.component';
+import { ExamQuestionComponent } from 'app/pages/exam-question/exam-question.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
+import { LearningComponent } from 'app/pages/learning/learning.component';
+import {AccordionModule} from 'primeng/accordion';
+import { ProjectManagementComponent } from 'app/pages/project-management/project-management.component';
 @NgModule({
   imports: [
-    ReactiveFormsModule, // Thêm vào imports
+    AccordionModule,
+    DialogModule,
+    DropdownModule,
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    BrowserAnimationsModule, // Bắt buộc cho ngx-toastr
-    ToastrModule.forRoot(), // Thiết lập ToastrModule
-    NgxPaginationModule, // Thêm vào imports
-
-    NgbModule
+    NgbModule,
+    ButtonModule,
+    InputTextModule
   ],
   declarations: [
+    ProjectManagementComponent,
+    LearningComponent,
+    ExamQuestionComponent,
+    UploadFileExcelQuestionComponent,
+    ListQuestionScreenComponent,
     DashboardComponent,
     UserComponent,
     TableComponent,
@@ -43,8 +51,6 @@ import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    LophocComponent,
-    EditHistoryModalComponent,
   ]
 })
 

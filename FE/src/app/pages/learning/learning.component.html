@@ -1,0 +1,43 @@
+<div class="card-title">
+<h5>Ôn tập câu hỏi phỏng vấn nào</h5>
+<p-dropdown [options]="options" placeholder="Công nghệ" [(ngModel)]="selectedOption" optionLabel="name">
+</p-dropdown>
+</div>
+<p-accordion>
+    <p-accordionTab header="1. Lập trình hướng đối tượng là gì?" [selected]="true">
+        <p>Lập trình hướng đối tượng là 1 kỹ thuật lập trình, cho phép lập trình viên trừu tượng hóa các đối tượng thực tế thành các đối tượng trong code.</p>
+    </p-accordionTab>
+    <p-accordionTab header=" Các tính chất của lập trình hướng đối tượng trong Java?">
+        <p>Có 4 tính chất:
+            tính trừu tượng
+            tính đóng gói
+            tính kế thừa
+            tính đa hình</p>
+    </p-accordionTab>
+    <p-accordionTab header="Hỏi về collection Framework ( đa phần sẽ gặp khi đi phỏng vấn)?">
+        <p>Sự khác nhau giữa Set với Map.
+            Sự khác nhau giữa Linklist với Arraylist; Vector với Arraylist; HashTable với HashMap.</p>
+    </p-accordionTab>
+    <p-accordionTab header="Liệt kê 5 đặc điểm bất kỳ của Java?">
+        <p>Một số đặc điểm của Java là:
+            Hướng đối tượng
+            Độc lập nền tảng
+            Thông dịch
+            Đa luồng (Multi-thread)
+            Robust (mạnh mẽ)
+            Portable (khả chuyển)</p>
+    </p-accordionTab>
+    <p-accordionTab header="Tại sao Java là độc lập cấu trúc?">
+        <p>Nó là Compiler tạo ra một định dạng file độc lập cấu trúc, mà làm cho code được biên dịch có thể thực thi trên bất kỳ Processor nào, với sự có mặt của hệ thống Java runtime.</p>
+    </p-accordionTab>
+    <p-accordionTab header=" Hiệu suất cao (High Performance) được kích hoạt như thế nào trong Java?">
+        <p>Java sử dụng Just-In-Time compiler để kích hoạt hiệu năng cao. Bộ biên dịch này là một chương trình mà bật Java Bytecode, mà là một chương trình chứa các chỉ thị phải được thông dịch thành các chỉ thị có thể được gửi trực tiếp tới Processor.</p>
+    </p-accordionTab>
+    <p-accordionTab header="Tại sao Java được xem như là Dynamic?">
+        <p>Nó được thiết kế để thích nghi với môi trường phát triển. Các chương trình Java có thể mang một lượng lớn thông tin run-time có thể được sử dụng để kiểm tra và xử lý các truy cập tới các đối tượng tại runtime.</p>
+    </p-accordionTab>
+    <p-accordionTab header="Java Virtual Machine là gì và cách nó được xem xét trong ngữ cảnh của đặc điểm độc lập nền tảng của Java?">
+        <p>Khi Java được biên dịch, nó không được biên dịch vào trong nền tảng máy cụ thể, thay vào đó là vào trong Bytecode độc lập nền tảng.
+            Bytecode này được phân phối thông qua Web và được thông dịch bởi Java Virtual Machine (JVM) trên bất kỳ nền tảng nào nó đang chạy.</p>
+    </p-accordionTab>
+</p-accordion>

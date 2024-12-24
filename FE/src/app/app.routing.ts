@@ -1,31 +1,25 @@
 import { Routes } from '@angular/router';
-
+import { AuthGuard } from './auth/auth.guard';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './login/login/login.component';
-import { AuthGuard } from './login/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 export const AppRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-    canActivate: [AuthGuard]
-    
-  }, 
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full',
+  // }, 
+ 
   {
     path: '',
     component: AdminLayoutComponent,
+    canActivate :[AuthGuard],
     children: [
         {
       path: '',
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(x => x.AdminLayoutModule)
-  }],
-  canActivate: [AuthGuard]
+  }]},
 
-},
-  {
-    path: '**',
-    redirectTo: 'dashboard',
-    canActivate: [AuthGuard]
-  }
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ]
