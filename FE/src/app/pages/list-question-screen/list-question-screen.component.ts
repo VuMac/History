@@ -8,7 +8,6 @@ import { TableModule } from 'primeng/table';
   styleUrls: ['./list-question-screen.component.scss']
 })
 export class ListQuestionScreenComponent implements OnInit {
-  options: any[];
   dataproduct:any=[];
   selectedOption: any;
   modelDetail : any = {};
@@ -16,11 +15,7 @@ export class ListQuestionScreenComponent implements OnInit {
   displayDetail : boolean = false;
   displayCreateNew : boolean = false;
   constructor(private httpClient: HttpClient) {
-    this.options = [
-      { name: "C#" },
-      { name: "Java" },
-      { name: "Reactjs" }
-    ]  
+   
     this.httpClient.get<any>("assets/data.json").subscribe(data =>{
       this.dataproduct = data.data;
     })

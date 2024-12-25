@@ -25,16 +25,24 @@ namespace HistoryQuizApi.Services.Implement
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<Boolean> CreateLessonAsync(LessonRequest lesson)
+        public async Task<Boolean> CreateLessonAsync(LessonRequest lesson, Guid idClass)
         {
-            var data = new Lesson();
-            data.Id = Guid.NewGuid();
-            data.ClassHistoryId = lesson.ClassHistoryId;
-            data.Title = lesson.Title;
-            data.Content = lesson.Content;
-            await _repository.AddAsync(data);
-            await _repository.SaveChangesAsync();
-            return true;
+            try
+            {
+                var data = new Lesson();
+                data.Id = Guid.NewGuid();
+                data.Title = lesson.Title;
+                data.Content = lesson.Content;
+                data.ClassHistoryId = idClass;
+                await _repository.AddAsync(data);
+                await _repository.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
         }
 
         public async Task UpdateLessonAsync(Lesson lesson)
@@ -65,6 +73,11 @@ namespace HistoryQuizApi.Services.Implement
             exam.LessonId = lessonId;
             await _examRepository.AddAsync(exam);
             await _examRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Lesson>> GetAllLessonsByIdClassAsync(Guid idClass)
+        {
+            return await _repository.GetAllByClassAsync(idClass);
         }
     }
 }

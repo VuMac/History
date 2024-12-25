@@ -23,13 +23,19 @@ namespace HistoryQuizApi.Controllers
             return Ok(lessons);
         }
 
-        [Authorize]
+        [HttpGet("getByClass")]
+        public async Task<IActionResult> GetAllLessonsByClass(Guid idClass)
+        {
+            var lessons = await _service.GetAllLessonsByIdClassAsync(idClass);
+            return Ok(lessons);
+        }
+
+        //s [Authorize]
         [HttpPost("create")]
-        public async Task<IActionResult> CreateLessons(LessonRequest lesson)
+        public async Task<IActionResult> CreateLessons(LessonRequest lesson,Guid idClass)
         {
             string a = "";
-            var data = await _service.CreateLessonAsync(lesson);
-
+            var data = await _service.CreateLessonAsync(lesson, idClass);
             return Ok(data);
         }
         [Authorize]
