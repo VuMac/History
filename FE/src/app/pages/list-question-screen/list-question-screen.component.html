@@ -6,14 +6,14 @@
         <div class="row">
           <div class="col-md-3 pr-1">
 
-           
+
           </div>
           <div class="col-md-3 px-1">
 
-           
+
           </div>
           <div class="col-md-3 pl-1">
-          
+
           </div>
           <div class="col-md-3 pl-3 text-right">
             <button pButton type="button" (click)="clickToCreatNew()" label="Tạo mới"
@@ -27,13 +27,13 @@
           <table class="table">
             <thead class=" text-primary">
               <th>
-                Công nghệ
+                ID
               </th>
               <th>
-                Câu hỏi
+                Tên lớp học
               </th>
               <th>
-                Trả lời
+                Mô tả
               </th>
               <th class="text-right">
                 Thao tác
@@ -42,21 +42,41 @@
             <tbody>
               <tr *ngFor="let item of dataproduct">
                 <td>
-                  {{item.code}}
+                  {{item.id}}
                 </td>
                 <td>
                   {{item.name}}
                 </td>
                 <td>
-                  {{item.image}}
+                  {{item.description}}
                 </td>
                 <td class="text-right">
+                  <!-- Nút xem chi tiết -->
                   <button (click)="clicktoDetail(item)" pButton pRipple type="button" icon="pi pi-user"
-                    class="p-button-rounded p-button-info"></button>
+                    class="p-button-rounded p-button-info" pTooltip="Xem chi tiết lớp học"></button>
+
+                  <!-- Nút thêm bài học -->
+                  <button (click)="addLesson(item)" pButton pRipple type="button" icon="pi pi-plus"
+                    class="p-button-rounded p-button-success" style="margin-left: 10px;"
+                    pTooltip="Thêm bài học cho lớp học"></button>
+                  <!-- Nút xem bài học -->
+                  <button (click)="viewLessons(item)" pButton pRipple type="button" icon="pi pi-book"
+                    class="p-button-rounded p-button-warning" style="margin-left: 10px;"
+                    pTooltip="Xem bài học trong lớp học"></button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <!-- Phân trang -->
+        <div class="pagination mt-3">
+          <button class="btn btn-primary" (click)="previousPage()">
+            Trang trước
+          </button>
+
+          <button class="btn btn-primary" (click)="nextPage()">
+            Trang sau
+          </button>
         </div>
       </div>
     </div>
@@ -64,8 +84,60 @@
 </div>
 
 
-<p-dialog header="Chi tiết" [(visible)]="displayDetail">
-  {{modelDetail.image}}
+<p-dialog header="Chi tiết" [(visible)]="displayDetail" [style]="{'width': '50%'}">
+  <form>
+    <div class="form-group">
+      <label for="className">Tên lớp học</label>
+      <input id="className" type="text" [(ngModel)]="modelDetail.name" name="className" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="classDescription">Mô tả</label>
+      <textarea id="classDescription" [(ngModel)]="modelDetail.description" name="classDescription"
+        class="form-control"></textarea>
+    </div>
+    <div class="text-right mt-3">
+      <button type="button" class="btn btn-primary" (click)="saveDetails()">Lưu</button>
+      <button type="button" class="btn btn-secondary" (click)="displayDetail = false">Hủy</button>
+    </div>
+  </form>
+</p-dialog>
+
+<p-dialog header="Thêm bài học mới" [(visible)]="displayCreateLesson" [modal]="true" [style]="{'width': '50%'}">
+  <form>
+    <div class="form-group">
+      <label for="lessonTitle">Tiêu đề bài học</label>
+      <input id="lessonTitle" type="text" [(ngModel)]="newLesson.title" name="lessonTitle" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="lessonContent">Nội dung bài học</label>
+      <textarea id="lessonContent" [(ngModel)]="newLesson.content" name="lessonContent" class="form-control"></textarea>
+    </div>
+    <div class="text-right mt-3">
+      <button type="button" class="btn btn-primary" (click)="saveLesson()">Lưu bài học</button>
+      <button type="button" class="btn btn-secondary" (click)="displayCreateLesson = false">Hủy</button>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- Dialog hiển thị danh sách bài học -->
+<p-dialog header="Danh sách bài học" [(visible)]="displayLessons" [modal]="true" [style]="{'width': '60%'}">
+  <div *ngIf="lessons.length === 0">
+    <p>Chưa có bài học nào trong lớp học này.</p>
+  </div>
+  <table *ngIf="lessons.length > 0" class="table">
+    <thead>
+      <tr>
+        <th>Tiêu đề</th>
+        <th>Nội dung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lesson of lessons">
+        <td>{{ lesson.title }}</td>
+        <td>{{ lesson.content }}</td>
+      </tr>
+    </tbody>
+  </table>
 </p-dialog>
 
 <p-dialog header="Tạo mới" [(visible)]="displayCreateNew">

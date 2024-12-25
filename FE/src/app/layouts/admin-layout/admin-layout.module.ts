@@ -25,6 +25,10 @@ import {DialogModule} from 'primeng/dialog';
 import { LearningComponent } from 'app/pages/learning/learning.component';
 import {AccordionModule} from 'primeng/accordion';
 import { ProjectManagementComponent } from 'app/pages/project-management/project-management.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
+
 @NgModule({
   imports: [
     AccordionModule,
@@ -35,7 +39,9 @@ import { ProjectManagementComponent } from 'app/pages/project-management/project
     FormsModule,
     NgbModule,
     ButtonModule,
-    InputTextModule
+    ToastModule, // Đảm bảo ToastModule đã được import
+    InputTextModule,
+    TooltipModule,
   ],
   declarations: [
     ProjectManagementComponent,
@@ -51,7 +57,8 @@ import { ProjectManagementComponent } from 'app/pages/project-management/project
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-  ]
+  ],
+  providers: [MessageService], // Đảm bảo MessageService đã được cung cấp
 })
 
 export class AdminLayoutModule {}

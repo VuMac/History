@@ -163,11 +163,11 @@ namespace HistoryQuizApi.Repository.Implement
         {
             try
             {
-                var a = _context.classHistory.FirstOrDefault(x => x.Id.Equals(lophoc.Id));
+                var a =  _context.classHistory.FirstOrDefault(x => x.Id.Equals(lophoc.Id));
                 a.Name = lophoc.Name;
                 a.Description = lophoc.Description;
-                _context.classHistory.Update(a);
-                _context.SaveChangesAsync();
+                 _context.classHistory.Update(a);
+                await _context.SaveChangesAsync();
                 return a;
             }catch(Exception e)
             {
