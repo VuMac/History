@@ -9,16 +9,22 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
+    { path: '/dashboard',     title: 'Thống kê',         icon:'nc-bank',       class: '' },
+   { path: '/user',          title: 'Thông tin cá nhân',      icon:'nc-single-02',  class: '' },
+    { path: '/listquestion',     title: 'Quản lý lớp học',         icon:'nc-hat-3',       class: '' },
+    { path: '/quanlyduan',     title: 'Quản lý dự án',         icon:'nc-paper',       class: '' },
+    { path: '/quanly',     title: 'Quản lý tài nguyên',         icon:'nc-app',       class: '' },
+    { path: '/uploadfile',     title: 'Upload file excel',         icon:'nc-send',       class: '' },
+    { path: '/exam',     title: 'Kiểm tra kiến thức',         icon:'nc-briefcase-24',       class: '' },
+    { path: '/hocbai',     title: 'Học bài',         icon:'nc-glasses-2',       class: '' },
+    
+
     // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },
     // { path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' },
     // { path: '/notifications', title: 'Notifications',     icon:'nc-bell-55',    class: '' },
-    // { path: '/user',          title: 'User Profile',      icon:'nc-single-02',  class: '' },
+
     // { path: '/table',         title: 'Table List',        icon:'nc-tile-56',    class: '' },
-    // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' },
-    // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },
-    //code below
-    { path: '/lophoc',         title: 'Quản lý lớp học',        icon:'nc-book-bookmark',    class: '' },
+    // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' }
 ];
 
 @Component({

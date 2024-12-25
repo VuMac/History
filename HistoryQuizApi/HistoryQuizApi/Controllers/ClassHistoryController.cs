@@ -62,7 +62,28 @@ public class ClassHistoryController : ControllerBase
         }
     }
 
-    //[Authorize]
+    [HttpDelete("remove")]
+    public async Task<ActionResult<ServiceResult>> GetAllListClass(Guid id)
+    {
+        var result = await _classService.RemoveClassHistory(id);
+        return Ok(result);
+    }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateClass(ClassHistoryRequest classHistory)
+    {
+        try
+        {
+            var result = await _classService.UpdateClassHistory(classHistory);
+            return Ok(result);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [Authorize]
     [HttpPost("{classId}/lessons")]
     public async Task<IActionResult> AddLessonToClass(Guid classId, Lesson lesson)
     {

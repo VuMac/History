@@ -1,0 +1,41 @@
+
+    <div class="card-title">
+        <p-dropdown [options]="options" placeholder="Công nghệ" [(ngModel)]="selectedOption" optionLabel="name">
+        </p-dropdown>
+    </div>
+
+
+<div class="privew">
+    <div class="questionsBox">
+        <div class="questions">Which of the following is correct about data-keyboard Data attribute of Modal Plugin?
+        </div>
+        <ul class="answerList">
+            <li>
+                <label>
+                    <input type="radio" name="answerGroup" value="0" id="answerGroup_0"> It specifies static for a
+                    backdrop, if you don't want the modal to be closed when the user clicks outside of the
+                    modal.</label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="answerGroup" value="1" id="answerGroup_ 1"> It closes the modal when
+                    escape key is pressed; set to false to disable.</label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="answerGroup" value="2" id="answerGroup_2"> It shows the modal when
+                    initialized.</label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="answerGroup" value="3" id="answerGroup_3"> Using the jQuery .load
+                    method, injects content into the modal body. If an href with a valid URL is added, it will load
+                    that content.</label>
+            </li>
+        </ul>
+        <div class="questionsRow">
+            <a class="button" id="nextquestions">Next</a>
+            <a class="button" id="skipquestions">Skip</a><span>2 of 20</span>
+        </div>
+    </div>
+</div>

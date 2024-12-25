@@ -116,6 +116,18 @@ namespace HistoryQuizApi.Services.Implement
             var result  = await _ClassRepository.GetListClassAsync(index,size);
             return result;
         }
+
+        public async Task<ClassHistory> UpdateClassHistory(ClassHistoryRequest lophoc)
+        {
+            var result = await _ClassRepository.UpdateClassHistory(lophoc);
+            return result;
+        }
+
+        public async Task<bool> RemoveClassHistory(Guid id)
+        {
+            var result = await _ClassRepository.DeleteById(id);
+            return result;
+        }
     } 
         
 }

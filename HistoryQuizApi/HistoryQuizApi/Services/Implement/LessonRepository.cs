@@ -18,6 +18,14 @@ namespace HistoryQuizApi.Services.Implement
             return await _context.Lessons.ToListAsync();
         }
 
+        public async Task<IEnumerable<Lesson>> GetAllByClassAsync(Guid idClass)
+        {
+                // Sử dụng DbContext để truy xuất dữ liệu từ bảng Lessons.
+                return await _context.Lessons
+                    .Where(lesson => lesson.ClassHistoryId == idClass) // Lọc bài học theo idClass
+                    .ToListAsync(); // Trả về danh sách
+        }
+
         public async Task<Lesson> GetByIdAsync(Guid id)
         {
             return await _context.Lessons.FindAsync(id);
@@ -42,5 +50,7 @@ namespace HistoryQuizApi.Services.Implement
         {
             await _context.SaveChangesAsync();
         }
+
+        
     }
 }

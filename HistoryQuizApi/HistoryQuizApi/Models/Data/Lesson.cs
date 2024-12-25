@@ -7,17 +7,9 @@ namespace HistoryQuizApi.Models.Data
     public class LessonRequest
     {
         // Primary key
-
-        public Guid Id { get; set; }
-
-
         public string Title { get; set; }
-
         public string Content { get; set; }
-
-        public Guid ClassHistoryId { get; set; }
- 
-
+      
     }
     public class Lesson
     {
