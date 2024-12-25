@@ -38,8 +38,8 @@
                                        TextColor="#333" />
 
                                 <!-- Mô tả lớp học -->
-                                <Label Text="{Binding id}"
-                                       FontSize="14" 
+                                <Label Text="{Binding description}"
+                                       FontSize="19" 
                                        VerticalOptions="Start"
                                        HorizontalOptions="Start"
                                        TextColor="#777"

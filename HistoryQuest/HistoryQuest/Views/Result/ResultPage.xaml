@@ -2,45 +2,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HistoryQuest.Views.ResultPage"
              BackgroundColor="#F4F4F4"
-             Title="Đăng Ký">
+             Title="Kết Quả Bài Thi">
 
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center" HorizontalOptions="Center">
 
-        <Label Text="Đăng Ký Tài Khoản" 
+        <!-- Tiêu đề -->
+        <Label Text="Kết Quả Bài Thi" 
                FontSize="28" 
                FontAttributes="Bold"
                HorizontalOptions="Center"
                TextColor="#3B5998" />
 
-        <Entry Placeholder="Tên đăng nhập" 
-               PlaceholderColor="Gray"
-               BackgroundColor="White" 
-               TextColor="Black"
-               HeightRequest="50" 
-               HorizontalOptions="FillAndExpand" />
+        <!-- Điểm số -->
+        <Label Text="Điểm: 90/100" 
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#4CAF50" />
 
-        <Entry Placeholder="Email" 
-               PlaceholderColor="Gray"
-               BackgroundColor="White" 
-               TextColor="Black" 
-               HeightRequest="50"
-               HorizontalOptions="FillAndExpand" />
+        <!-- Đánh giá -->
+        <Label Text="Xuất sắc!" 
+               FontSize="20"
+               HorizontalOptions="Center"
+               TextColor="Black" />
 
-        <Entry Placeholder="Mật khẩu" 
-               IsPassword="True" 
-               PlaceholderColor="Gray"
-               BackgroundColor="White" 
-               TextColor="Black"
-               HeightRequest="50"
-               HorizontalOptions="FillAndExpand" />
-
-        <Button Text="Đăng Ký" 
+        <!-- Nút quay lại -->
+        <Button Text="Quay Lại Trang Chủ" 
                 BackgroundColor="#4CAF50"
                 TextColor="White"
                 FontAttributes="Bold"
                 HeightRequest="50"
                 CornerRadius="10"
-                HorizontalOptions="FillAndExpand" />
+                HorizontalOptions="FillAndExpand"
+                Clicked="OnBackToHomeClicked" />
 
     </VerticalStackLayout>
 </ContentPage>

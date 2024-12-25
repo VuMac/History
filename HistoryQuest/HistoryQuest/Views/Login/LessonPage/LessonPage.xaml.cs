@@ -7,9 +7,10 @@ public partial class LessonPage : ContentPage
         InitializeComponent();
         //BindingContext = this;
     }
-    private async void OnBackButtonClicked(object sender, EventArgs e)
+    private void OnBackButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PopAsync(); // Quay lại trang trước đó
+        // Điều hướng đến trang chỉnh sửa thông tin cá nhân bằng Application.Current.MainPage
+        Application.Current.MainPage = new Views.Main.HomePage();
     }
 
 

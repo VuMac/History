@@ -22,47 +22,58 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        var userID = Preferences.Get("userID", "");
         // Gọi API để tải danh sách lớp học
-        await LoadClassesAsync("randomshit");
+        await LoadClassesAsync(userID);
     }
 
-    private async Task LoadClassesAsync(string userId)
+    private async Task LoadClassesAsync(string userID)
     {
-        try
+        if (!String.IsNullOrEmpty(userID))
         {
-            HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-            // URL API
-            string apiUrl = "https://192.168.1.6:5000/api/ClassHistory/GetClassHistoryEnroll?idUser=33F18F75-8056-4E5E-86EF-08DD203B9422";
-
-            // Gọi API
-            using var httpClient = new HttpClient(clientHandler);
-            var classList = await httpClient.GetFromJsonAsync<List<ClassHistoryResponse>>(apiUrl);
-
-            // Kiểm tra và hiển thị dữ liệu
-            if (classList != null)
+            try
             {
-                // Xóa dữ liệu cũ trước khi thêm mới
-                Classes.Clear();
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
-                foreach (var classname in classList)
+                // URL API
+                string apiUrl = $"https://192.168.1.6:5000/api/ClassHistory/GetClassHistoryEnroll?idUser={userID}";
+
+                // Gọi API
+                using var httpClient = new HttpClient(clientHandler);
+                var classList = await httpClient.GetFromJsonAsync<List<ClassHistoryResponse>>(apiUrl);
+
+                // Kiểm tra và hiển thị dữ liệu
+                if (classList != null)
                 {
-                    Classes.Add(classname.Name); // Thêm tên lớp vào danh sách
+                    // Xóa dữ liệu cũ trước khi thêm mới
+                    foreach (var classname in classList)
+                    {
+                        // Kiem tra neu ObserverColleciton khong chua name truoc day thi add vao
+                        if (!Classes.Contains(classname.Name))
+                        {
+                            // Thêm tên lớp vào danh sách
+                            Classes.Add(classname.Name);
+                        }
+                    }
+
+                    // Gán danh sách lớp vào CollectionView (nếu cần)
+                    ClassListView.ItemsSource = Classes;
                 }
 
-                // Gán danh sách lớp vào CollectionView (nếu cần)
-                ClassListView.ItemsSource = Classes;
+                Console.WriteLine("Done");
             }
-
-            Console.WriteLine("Done");
+            catch (Exception ex)
+            {
+                // Hiển thị thông báo lỗi nếu cần
+                await DisplayAlert("Lỗi", $"Không thể tải danh sách lớp học: {ex.Message}", "OK");
+            }
         }
-        catch (Exception ex)
+        else
         {
-            // Hiển thị thông báo lỗi nếu cần
-            await DisplayAlert("Lỗi", $"Không thể tải danh sách lớp học: {ex.Message}", "OK");
+            await DisplayAlert("Error", "Please log in first! You dumb pig!", "Failure");
         }
+        
     }
 
     private async void OnAddClassClicked(object sender, EventArgs e)

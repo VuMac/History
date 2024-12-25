@@ -11,8 +11,9 @@ public partial class ClassPage : ContentPage
         Application.Current.MainPage = new NavigationPage(new Views.LessonPage());
     }
 
-    private async void OnExamButtonClicked(object sender, EventArgs e)
+    private void OnExamButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ExamPage()); // Điều hướng đến trang Bài thi
+        // Điều hướng đến trang chỉnh sửa thông tin cá nhân bằng Application.Current.MainPage
+        Application.Current.MainPage = new Views.ExamPage();
     }
 }

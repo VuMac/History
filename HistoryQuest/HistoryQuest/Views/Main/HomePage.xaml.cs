@@ -20,7 +20,7 @@ public partial class HomePage : FlyoutPage
         Page targetPage = null;
 
         // Điều hướng đến các trang dựa trên mục được chọn
-        if (selectedItem == "Home")
+        if (selectedItem == "Trang Chủ")
         {
             targetPage = new HomePage(); // Trang chính của Home
         }

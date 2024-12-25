@@ -83,8 +83,8 @@ namespace HistoryQuest.ViewModels.MainViewModels
             // Logic for finishing the exam
             // e.g., calculate the score, show results, etc.
             Application.Current.MainPage.DisplayAlert("Kết thúc bài thi", "Bạn đã hoàn thành bài thi!", "OK");
-            Application.Current.MainPage = new NavigationPage(new Views.Main.HomePage());
-
+            Application.Current.MainPage = new NavigationPage(new Views.ResultPage());
+            
         }
     }
 

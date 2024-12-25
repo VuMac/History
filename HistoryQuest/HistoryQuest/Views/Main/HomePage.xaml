@@ -4,18 +4,31 @@
             x:Class="HistoryQuest.Views.Main.HomePage">
     <!-- Menu bên trái -->
     <FlyoutPage.Flyout>
-        <ContentPage Title="Menu">
-            <ListView x:Name="MenuItemsList">
-                <ListView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Home</x:String>
-                        <x:String>Thông Tin</x:String>
-                        <x:String>Lớp Học</x:String>
-                        <x:String >Đăng xuất </x:String> 
-                    </x:Array>
-                </ListView.ItemsSource>
-            </ListView>
-           
+        <ContentPage Title="Menu" BackgroundColor="#F4F4F4">
+            <VerticalStackLayout>
+                <!-- Tiêu đề menu -->
+                <Label Text="Menu"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#007AFF"
+                       Padding="10"
+                       HorizontalOptions="Center" />
+
+                <!-- Danh sách menu -->
+                <ListView x:Name="MenuItemsList" ItemSelected="OnMenuItemSelected">
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Trang Chủ</x:String>
+                            <x:String>Thông Tin</x:String>
+                            <x:String>Lớp Học</x:String>
+                            <x:String>Đăng Xuất</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+
+                    <!-- Nút Đăng xuất ở Footer -->
+                    
+                </ListView>
+            </VerticalStackLayout>
         </ContentPage>
     </FlyoutPage.Flyout>
 
@@ -34,46 +47,7 @@
                                    HorizontalOptions="Center"
                                    TextColor="#333" />
 
-                           
                             <!-- Danh sách bài thi -->
-                            <CollectionView x:Name="QuizCollectionView"
-                                            ItemsSource="{Binding QuizList}"
-                                            SelectionMode="None">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame BackgroundColor="White"
-                                               CornerRadius="10"
-                                               Padding="10"
-                                               Margin="5"
-                                               HasShadow="True">
-                                            <VerticalStackLayout>
-                                                <!-- Tên bài thi -->
-                                                <Label Text="{Binding Title}"
-                                                       FontSize="20"
-                                                       FontAttributes="Bold"
-                                                       TextColor="#007AFF" />
-
-                                                <!-- Mô tả bài thi -->
-                                                <Label Text="{Binding Description}"
-                                                       FontSize="14"
-                                                       TextColor="#666"
-                                                       LineBreakMode="TailTruncation" />
-
-                                                <!-- Nút làm bài -->
-                                                <Button Text="Bắt đầu làm bài"
-                                                        FontSize="14"
-                                                        BackgroundColor="#007AFF"
-                                                        TextColor="White"
-                                                        CornerRadius="10"
-                                                        Padding="5"
-                                                        HorizontalOptions="End"
-                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.StartQuizCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                            </VerticalStackLayout>
-                                        </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
 
                         </StackLayout>
                     </ScrollView>

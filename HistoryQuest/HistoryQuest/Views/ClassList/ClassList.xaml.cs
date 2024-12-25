@@ -53,7 +53,7 @@ public partial class ClassList : ContentPage
 
             // Cấu hình HttpClient
             using var httpClient = new HttpClient(new CustomHttpClientHandler());
-            string apiUrlGetList = "https://192.168.1.5:5000/api/ClassHistory/GetClassHistory?pageIndex=1&pageSize=99";
+            string apiUrlGetList = "https://192.168.1.6:5000/api/ClassHistory/GetAll?index=1&size=20";
             httpClient.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwtString);
 
@@ -64,15 +64,18 @@ public partial class ClassList : ContentPage
                 string responseBody = await response.Content.ReadAsStringAsync();
 
                 // Deserialize JSON response
-                var items = JsonSerializer.Deserialize<HistoryClassList>(responseBody);
+                var items = JsonSerializer.Deserialize<List<HistoryClass>>(responseBody);
 
                 // Kiểm tra dữ liệu trả về và cập nhật danh sách
-                if (items != null && items.items != null)
+                if (items.Count() != 0)
                 {
                     HistoryList.Clear(); // Xóa dữ liệu cũ nếu có
-                    foreach (var item in items.items)
+                    foreach (var item in items)
                     {
-                        HistoryList.Add(item);
+                        if(!HistoryList.Contains(item))
+                        {
+                            HistoryList.Add(item);
+                        }   
                     }
                 }
             }

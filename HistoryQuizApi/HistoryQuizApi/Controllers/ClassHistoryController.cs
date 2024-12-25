@@ -31,7 +31,7 @@ public class ClassHistoryController : ControllerBase
         return Ok(result);
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet("GetClassHistoryNotEnroll")]
     public async Task<ActionResult<ServiceResult>> GetListClassNotEnroll(string idUser)
     {
@@ -39,7 +39,7 @@ public class ClassHistoryController : ControllerBase
         return Ok(result);
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpPost("Add")]
     public async Task<ActionResult<ServiceResult>> AddClass([FromBody] AddClassHistoryDto addClassHistoryDto)
     {
@@ -62,7 +62,7 @@ public class ClassHistoryController : ControllerBase
         }
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpPost("{classId}/lessons")]
     public async Task<IActionResult> AddLessonToClass(Guid classId, Lesson lesson)
     {
