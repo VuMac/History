@@ -109,16 +109,12 @@ namespace HistoryQuizApi.Repository.Implement
             // Validate input parameters
             if (pageIndex < 0) throw new ArgumentException("Page index cannot be negative.", nameof(pageIndex));
             if (pageSize <= 0) throw new ArgumentException("Page size must be greater than zero.", nameof(pageSize));
-
-
             // Query all data from ClassHistories
             var query = _context.classHistory;
-
             // Apply pagination
             var result = await query.Skip(pageIndex * pageSize)
                                     .Take(pageSize)
                                     .ToListAsync();
-
             return result;
         }
 

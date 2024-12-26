@@ -15,9 +15,9 @@ namespace HistoryQuizApi.Services.Implement
             _examRepository = examRepository;
         }
 
-        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync(int pageIndex, int pageSize)
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllAsync( pageIndex, pageSize);
         }
 
         public async Task<Lesson> GetLessonByIdAsync(Guid id)

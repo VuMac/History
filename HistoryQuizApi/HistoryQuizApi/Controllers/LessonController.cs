@@ -15,11 +15,11 @@ namespace HistoryQuizApi.Controllers
         {
             _service = service;
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAllLessons()
+        public async Task<IActionResult> GetAllLessons(int index, int size)
         {
-            var lessons = await _service.GetAllLessonsAsync();
+            var lessons = await _service.GetAllLessonsAsync(index, size);
             return Ok(lessons);
         }
 

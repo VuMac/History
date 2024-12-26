@@ -4,7 +4,7 @@ namespace HistoryQuizApi.Services.Interface
 {
     public interface ILessonService
     {
-        Task<IEnumerable<Lesson>> GetAllLessonsAsync();
+        Task<IEnumerable<Lesson>> GetAllLessonsAsync(int pageIndex, int pageSize);
         Task<Lesson> GetLessonByIdAsync(Guid id);
         Task<Boolean> CreateLessonAsync(LessonRequest lesson,Guid idClass);
         Task UpdateLessonAsync(Lesson lesson);

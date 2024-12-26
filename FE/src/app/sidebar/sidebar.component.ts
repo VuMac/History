@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard',     title: 'Thống kê',         icon:'nc-bank',       class: '' },
    { path: '/user',          title: 'Thông tin cá nhân',      icon:'nc-single-02',  class: '' },
     { path: '/listquestion',     title: 'Quản lý lớp học',         icon:'nc-hat-3',       class: '' },
-    { path: '/quanlyduan',     title: 'Quản lý dự án',         icon:'nc-paper',       class: '' },
+    { path: '/quanlyduan',     title: 'Quản lý bài học',         icon:'nc-paper',       class: '' },
     { path: '/quanly',     title: 'Quản lý tài nguyên',         icon:'nc-app',       class: '' },
     { path: '/uploadfile',     title: 'Upload file excel',         icon:'nc-send',       class: '' },
     { path: '/exam',     title: 'Kiểm tra kiến thức',         icon:'nc-briefcase-24',       class: '' },

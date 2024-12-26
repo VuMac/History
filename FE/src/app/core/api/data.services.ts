@@ -52,4 +52,10 @@ export class DataServices {
     return this.http.post(url, lessonData, { headers });
   }
 
+   // Phương thức lấy danh sách bài học với phân trang
+getLessonsWithPagination(index: number, size: number): Observable<any> {
+  const url = `${this.API_URL}lesson?index=${index}&size=${size}`;
+  return this.http.get<any>(url);
+}
+
 }

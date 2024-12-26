@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DataServices } from 'app/core/api/data.services';
 
 @Component({
   selector: 'app-project-management',
@@ -8,34 +9,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectManagementComponent implements OnInit {
 
-  options: any[];
-  dataproduct:any=[];
+  lessons: any[] = []; // Danh sách bài học
+  currentPage = 0; // Trang hiện tại
+  pageSize = 4; // Số bài học trên mỗi trang
+  totalItems = 0; // Tổng số bài học
+  dataproduct: any = [];
   selectedOption: any;
-  modelDetail : any = {};
-  // view
-  displayDetail : boolean = false;
-  displayCreateNew : boolean = false;
-  constructor(private httpClient: HttpClient) {
-    this.options = [
-      { name: "C#" },
-      { name: "Java" },
-      { name: "Reactjs" }
-    ]  
-    this.httpClient.get<any>("assets/data.json").subscribe(data =>{
-      this.dataproduct = data.data;
-    })
-  }
+  modelDetail: any = {};
+  
+  // Hiển thị giao diện
+  displayDetail: boolean = false;
+  displayCreateNew: boolean = false;
+
+  constructor(
+    private httpClient: HttpClient,
+    private dataService: DataServices
+  ) {}
 
   ngOnInit(): void {
-    
+    // Tải dữ liệu bài học ở trang đầu tiên
+    this.loadLessons(this.currentPage, this.pageSize);
   }
-  clicktoDetail(model){
+
+  // Tải danh sách bài học với phân trang
+  loadLessons(index: number, size: number): void {
+    this.dataService.getLessonsWithPagination(index, size).subscribe(
+      (response) => {
+        console.log('Danh sách bài học với phân trang:', response);
+        this.lessons = response.data; // Giả sử response có trường data chứa danh sách bài học
+      },
+      (error) => {
+        console.error('Có lỗi xảy ra khi lấy danh sách bài học với phân trang:', error);
+      }
+    );
+  }
+
+  // Hiển thị chi tiết bài học
+  clicktoDetail(model): void {
     this.modelDetail = model;
     this.displayDetail = true;
   }
 
-  clickToCreatNew(){
+  // Mở giao diện tạo bài học mới
+  clickToCreatNew(): void {
     this.displayCreateNew = true;
   }
 
+  // Chuyển đến trang trước
+// Chuyển sang trang tiếp theo
+nextPage(): void {
+  this.currentPage++;
+  this.loadLessons(this.currentPage, this.pageSize);
+
+}
+
+// Quay lại trang trước
+previousPage(): void {
+  this.currentPage--;
+  if(this.currentPage < 0) this.currentPage = 0
+  this.loadLessons(this.currentPage, this.pageSize);
+}
 }

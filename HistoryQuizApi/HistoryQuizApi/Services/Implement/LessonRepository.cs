@@ -13,9 +13,25 @@ namespace HistoryQuizApi.Services.Implement
             _context = context;
         }
 
-        public async Task<IEnumerable<Lesson>> GetAllAsync()
+        public async Task<IEnumerable<Lesson>> GetAllAsync(int pageIndex, int pageSize)
         {
-            return await _context.Lessons.ToListAsync();
+            try
+            {
+                // Validate input parameters
+                if (pageIndex < 0) throw new ArgumentException("Page index cannot be negative.", nameof(pageIndex));
+                if (pageSize <= 0) throw new ArgumentException("Page size must be greater than zero.", nameof(pageSize));
+                // Query all data from ClassHistories
+                var query = _context.Lessons;
+                // Apply pagination
+                var result = await query.Skip(pageIndex * pageSize)
+                                        .Take(pageSize)
+                                        .ToListAsync();
+                return result;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public async Task<IEnumerable<Lesson>> GetAllByClassAsync(Guid idClass)
