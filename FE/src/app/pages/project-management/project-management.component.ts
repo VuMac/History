@@ -9,7 +9,7 @@ import { DataServices } from 'app/core/api/data.services';
 })
 export class ProjectManagementComponent implements OnInit {
 
-  lessons: any[] = []; // Danh sách bài học
+  lessons:any=[]; // Danh sách bài học
   currentPage = 0; // Trang hiện tại
   pageSize = 4; // Số bài học trên mỗi trang
   totalItems = 0; // Tổng số bài học
@@ -36,7 +36,7 @@ export class ProjectManagementComponent implements OnInit {
     this.dataService.getLessonsWithPagination(index, size).subscribe(
       (response) => {
         console.log('Danh sách bài học với phân trang:', response);
-        this.lessons = response.data; // Giả sử response có trường data chứa danh sách bài học
+        this.lessons = response; // Giả sử response có trường data chứa danh sách bài học
       },
       (error) => {
         console.error('Có lỗi xảy ra khi lấy danh sách bài học với phân trang:', error);

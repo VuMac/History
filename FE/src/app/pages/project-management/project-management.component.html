@@ -27,24 +27,24 @@
                   {{item.id}}
                 </td>
                 <td>
-                  {{item.name}}
+                  {{item.title}}
                 </td>
                 <td>
-                  {{item.description}}
+                  {{item.content}}
                 </td>
                 <td class="text-right">
                   <!-- Nút xem chi tiết -->
                   <button (click)="clicktoDetail(item)" pButton pRipple type="button" icon="pi pi-user"
-                    class="p-button-rounded p-button-info" pTooltip="Xem chi tiết lớp học"></button>
+                    class="p-button-rounded p-button-info" pTooltip="Xem chi tiết bài học"></button>
 
                   <!-- Nút thêm bài học -->
                   <button (click)="addLesson(item)" pButton pRipple type="button" icon="pi pi-plus"
                     class="p-button-rounded p-button-success" style="margin-left: 10px;"
-                    pTooltip="Thêm bài học cho lớp học"></button>
+                    pTooltip="Thêm câu hỏi cho bài học"></button>
                   <!-- Nút xem bài học -->
                   <button (click)="viewLessons(item)" pButton pRipple type="button" icon="pi pi-book"
                     class="p-button-rounded p-button-warning" style="margin-left: 10px;"
-                    pTooltip="Xem bài học trong lớp học"></button>
+                    pTooltip="Xem câu hỏi của bài học"></button>
                 </td>
               </tr>
             </tbody>
