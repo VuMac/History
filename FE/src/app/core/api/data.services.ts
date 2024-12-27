@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root' // Đảm bảo service được cung cấp ở root injector
+  providedIn: 'root' 
 })
 export class DataServices {
     private readonly API_URL = 'https://localhost:5000/api/';
