@@ -105,12 +105,19 @@ export class DataServices {
     return this.http.post(url, submissions);
   }
 
-  getStudents(pageIndex: number, pageSize: number): Observable<any> {
-    return this.http.get(`${this.API_URL}User?pageIndex=${pageIndex}&pageSize=${pageSize}`);
-  }
+ 
 
   getSubmittedLessons(studentId: string): Observable<any> {
     const url = `${this.API_URL}submissions/student/${studentId}`;
     return this.http.get<any>(url);
+  } 
+
+  // Lấy danh sách học sinh với phân trang
+  getStudents(pageIndex: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<any>(this.API_URL, { params });
   }
 }
