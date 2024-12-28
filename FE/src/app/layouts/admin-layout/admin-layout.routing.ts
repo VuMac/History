@@ -12,6 +12,9 @@ import { UploadFileExcelQuestionComponent } from 'app/pages/upload-file-excel-qu
 import { ExamQuestionComponent } from 'app/pages/exam-question/exam-question.component';
 import { LearningComponent } from 'app/pages/learning/learning.component';
 import { ProjectManagementComponent } from 'app/pages/project-management/project-management.component';
+import { QuanlycauhoiComponent } from 'app/pages/quanlycauhoi/quanlycauhoi.component';
+import { LambaithiComponent } from './folder/lambaithi/lambaithi.component';
+import { ChamdiemComponent } from './folder/chamdiem/chamdiem.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -27,5 +30,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'uploadfile',        component: UploadFileExcelQuestionComponent },
     { path: 'hocbai',        component: LearningComponent },
     { path: 'quanlyduan',        component: ProjectManagementComponent },
+    { path: 'quanlycauhoi',        component: QuanlycauhoiComponent },
+    { path: 'lambai',        component: LambaithiComponent },
+    { path: 'chamdiem',        component: ChamdiemComponent },
+
     
 ];

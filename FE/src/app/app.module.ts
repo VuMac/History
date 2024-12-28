@@ -18,7 +18,6 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
 import { AuthGuard } from "./auth/auth.guard";
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
-import { QuanlycauhoiComponent } from './pages/quanlycauhoi/quanlycauhoi.component';
 
 //primeng
 
@@ -28,7 +27,6 @@ import { QuanlycauhoiComponent } from './pages/quanlycauhoi/quanlycauhoi.compone
     AdminLayoutComponent,
     LoginComponent,
     RegisterComponent,
-    QuanlycauhoiComponent,
   ],
   imports: [
     HttpClientModule,

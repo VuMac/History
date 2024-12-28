@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Models.Data;
+﻿using HistoryQuizApi.Models;
+using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,19 @@ namespace HistoryQuizApi.Services.Implement
         public ExamService(AppDbContext context)
         {
             _context = context;
+        }
+        public async Task<PaginatedList<Exam>> GetAllExamsWithPagination(int pageIndex, int pageSize)
+        {
+            try
+            {
+                var query = _context.Exams.OrderBy(e => e.Title); // Sắp xếp theo tiêu đề câu hỏi, có thể thay đổi theo nhu cầu
+
+                return await PaginatedList<Exam>.CreateAsync(query, pageIndex, pageSize);
+            }
+           catch(Exception e)
+            {
+                return null;
+            }
         }
 
         // Thêm câu hỏi cho bài học
@@ -44,18 +58,22 @@ namespace HistoryQuizApi.Services.Implement
         }
 
         // Cập nhật câu hỏi
-        public async Task<bool> UpdateQuestionAsync(string questionId, string title, string description)
+        public async Task<bool> UpdateQuestionAsync(string id, string title, string description)
         {
-            var question = await _context.Exams.FindAsync(questionId);
-            if (question == null) return false;
-
-            question.Title = title;
-            question.Description = description;
-
-            _context.Exams.Update(question);
-            await _context.SaveChangesAsync();
-
-            return true;
+            try
+            {
+                var question =  _context.Exams.FirstOrDefault(x => x.Id .Equals(Guid.Parse(id)));
+                if (question == null) return false;
+                question.Title = title;
+                question.Description = description;
+                _context.Exams.Update(question);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
         // Xóa câu hỏi

@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Models.Data;
+﻿using HistoryQuizApi.Models;
+using HistoryQuizApi.Models.Data;
 
 namespace HistoryQuizApi.Services.Interface
 {
@@ -15,5 +16,6 @@ namespace HistoryQuizApi.Services.Interface
 
         // Xóa câu hỏi
         Task<bool> DeleteQuestionAsync(string questionId);
+        Task<PaginatedList<Exam>> GetAllExamsWithPagination( int pageIndex, int pageSize);
     }
 }

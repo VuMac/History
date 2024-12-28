@@ -104,7 +104,12 @@ namespace HistoryQuizApi.Controllers
             return Ok(new { message = "Đăng ký thành công!" });
         }
 
-
+        [HttpGet("students")]
+        public async Task<IActionResult> GetStudents([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var result = await _userService.GetStudentsWithPaginationAsync(pageIndex, pageSize);
+            return Ok(result);
+        }
 
 
 

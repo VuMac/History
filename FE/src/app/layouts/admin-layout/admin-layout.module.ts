@@ -28,6 +28,10 @@ import { ProjectManagementComponent } from 'app/pages/project-management/project
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { QuanlycauhoiComponent } from 'app/pages/quanlycauhoi/quanlycauhoi.component';
+import { HocbaiComponent } from './folder/hocbai/hocbai.component';
+import { LambaithiComponent } from './folder/lambaithi/lambaithi.component';
+import { ChamdiemComponent } from './folder/chamdiem/chamdiem.component';
 
 @NgModule({
   imports: [
@@ -44,6 +48,7 @@ import { TooltipModule } from 'primeng/tooltip';
     TooltipModule,
   ],
   declarations: [
+    QuanlycauhoiComponent,
     ProjectManagementComponent,
     LearningComponent,
     ExamQuestionComponent,
@@ -57,6 +62,9 @@ import { TooltipModule } from 'primeng/tooltip';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    HocbaiComponent,
+    LambaithiComponent,
+    ChamdiemComponent,
   ],
   providers: [MessageService], // Đảm bảo MessageService đã được cung cấp
 })

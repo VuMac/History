@@ -13,10 +13,13 @@ export const ROUTES: RouteInfo[] = [
    { path: '/user',          title: 'Thông tin cá nhân',      icon:'nc-single-02',  class: '' },
     { path: '/listquestion',     title: 'Quản lý lớp học',         icon:'nc-hat-3',       class: '' },
     { path: '/quanlyduan',     title: 'Quản lý bài học',         icon:'nc-paper',       class: '' },
-    { path: '/quanly',     title: 'Quản lý tài nguyên',         icon:'nc-app',       class: '' },
-    { path: '/uploadfile',     title: 'Upload file excel',         icon:'nc-send',       class: '' },
-    { path: '/exam',     title: 'Kiểm tra kiến thức',         icon:'nc-briefcase-24',       class: '' },
-    { path: '/hocbai',     title: 'Học bài',         icon:'nc-glasses-2',       class: '' },
+    { path: '/quanlycauhoi',     title: 'Quản lý câu hỏi',         icon:'nc-app',       class: '' },
+    // { path: '/quanly',     title: 'Quản lý tài nguyên',         icon:'nc-app',       class: '' },
+    // { path: '/uploadfile',     title: 'Upload file excel',         icon:'nc-send',       class: '' },
+    // { path: '/exam',     title: 'Kiểm tra kiến thức',         icon:'nc-briefcase-24',       class: '' },
+    { path: '/chamdiem',     title: 'Chấm điểm',         icon:'nc-badge',       class: '' },
+    { path: '/lambai',     title: 'làm bài thử',         icon:'nc-button-play',       class: '' },
+    // { path: '/hocbai',     title: 'Học bài',         icon:'nc-glasses-2',       class: '' },
     
 
     // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },

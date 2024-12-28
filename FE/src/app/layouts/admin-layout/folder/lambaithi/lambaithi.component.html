@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Danh sách bài học</h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Tên bài học</th>
+              <th>Mô tả</th>
+              <th class="text-right">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lesson of lessons">
+              <td>{{ lesson.title }}</td>
+              <td>{{ lesson.content }}</td>
+              <td class="text-right">
+                <button class="btn btn-primary" (click)="startExam(lesson)">
+                  Làm bài thi
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #noData>
+          <p>Không có bài học nào để hiển thị.</p>
+        </ng-template>
+        <!-- Phân trang -->
+        <div class="pagination mt-3">
+          <button class="btn btn-primary" (click)="prevPage()" [disabled]="currentPage === 1">
+            Trang trước
+          </button>
+          <button class="btn btn-primary" (click)="nextPage()">
+            Trang sau
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p-dialog header="Làm bài thi: {{ selectedLessonTitle }}" [(visible)]="displayExamDialog" [style]="{ width: '80vw' }">
+  <!-- Kiểm tra nếu có câu hỏi -->
+  <div *ngIf="questions.length > 0; else noQuestions">
+    <!-- Lặp qua từng câu hỏi -->
+    <div *ngFor="let question of questions; let i = index" class="mb-4">
+      <div class="question-card p-3" style="border: 1px solid #ddd; border-radius: 8px;">
+        <!-- Tiêu đề câu hỏi -->
+        <h5 class="mb-3">Câu hỏi {{ i + 1 }}: {{ question.title }}</h5>
+
+        <!-- Kiểm tra xem câu hỏi có đúng 4 đáp án -->
+        <div *ngIf="question.answers && question.answers.length === 4">
+          <div class="answers-list">
+            <div *ngFor="let answer of question.answers; let j = index" class="form-check">
+              <!-- Radio button cho từng đáp án -->
+              <input class="form-check-input" type="radio" [(ngModel)]="question.selectedAnswer" [value]="answer"
+                [name]="'question' + i" id="answer{{ i }}-{{ j }}" style="margin-left: 20px;">
+              <!-- Thêm margin-left cho radio button -->
+              <label class="form-check-label" [for]="'answer' + i + '-' + j" style="margin-left: 10px;">{{ answer
+                }}</label> <!-- Thêm margin-left cho label -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nếu không có câu hỏi -->
+  <ng-template #noQuestions>
+    <p class="text-center">Không có câu hỏi nào trong bài học này.</p>
+  </ng-template>
+
+  <!-- Nút nộp bài -->
+  <div class="text-right mt-4">
+    <button class="btn btn-primary" (click)="submitExam()">Nộp bài</button>
+  </div>
+</p-dialog>

@@ -2,56 +2,60 @@
 using HistoryQuizApi.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HistoryQuizApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class SubmissionController : ControllerBase
+    [Route("api/submission")]
+    public class SubmissionsController : ControllerBase
     {
-        private readonly ISubmissionService _service;
+        private readonly AppDbContext _context;
 
-        public SubmissionController(ISubmissionService service)
+        public SubmissionsController(AppDbContext context)
         {
-            _service = service;
+            _context = context;
         }
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> SubmitExam(Submission submission)
-        {
-            await _service.SubmitExamAsync(submission);
-            return CreatedAtAction(nameof(GetSubmissionById), new { id = submission.Id }, submission);
-        }
-        [Authorize]
-        [HttpGet("exam/{examId}")]
-        public async Task<IActionResult> GetSubmissionsForExam(Guid examId)
-        {
-            var submissions = await _service.GetSubmissionsForExamAsync(examId);
-            return Ok(submissions);
-        }
-        [Authorize]
-        [HttpPatch("{submissionId}/grade")]
-        public async Task<IActionResult> GradeSubmission(Guid submissionId, [FromBody] decimal grade)
-        {
-            try
-            {
-                await _service.GradeSubmissionAsync(submissionId, grade);
-                return NoContent();
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
-        [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetSubmissionById(Guid id)
-        {
-            var submission = await _service.GetSubmissionsForExamAsync(id);
-            if (submission == null)
-                return NotFound();
 
-            return Ok(submission);
+        [HttpPost("submit")]
+        public async Task<IActionResult> SubmitExam([FromBody] List<SubmissionRequest> submissions)
+        {
+            if (submissions == null || submissions.Count == 0)
+            {
+                return BadRequest("Danh sách submissions không hợp lệ.");
+            }
+
+            // Lấy thông tin học sinh từ submissions
+            var studentId = submissions.First().StudentId;
+
+            // Lấy danh sách các ExamId từ submissions
+            var examIds = submissions.Select(s => s.ExamId).ToList();
+
+            // Kiểm tra xem bất kỳ Exam nào trong danh sách đã được nộp bởi học sinh này chưa
+            var existingSubmissions = await _context.Submissions
+                .Where(s => s.StudentId == studentId && examIds.Contains(s.ExamId))
+                .ToListAsync();
+
+            if (existingSubmissions.Any())
+            {
+                return Conflict("Học sinh đã nộp bài kiểm tra cho môn học này.");
+            }
+
+            // Nếu chưa nộp, tạo danh sách mới và lưu vào cơ sở dữ liệu
+            var newSubmissions = submissions.Select(sub => new Submission
+            {
+                Id = Guid.NewGuid(),
+                ExamId = sub.ExamId,
+                StudentId = sub.StudentId,
+                Content = sub.Content,
+                IsGraded = false,
+                Grade = null
+            }).ToList();
+
+            await _context.Submissions.AddRangeAsync(newSubmissions);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Nộp bài thành công!" });
         }
     }
 }

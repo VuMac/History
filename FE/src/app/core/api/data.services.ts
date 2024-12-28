@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -72,4 +72,45 @@ export class DataServices {
     return this.http.get<any[]>(`${this.API_URL}exam/getByLesson/${lessonId}`);
   }
 
+
+  // Phương thức lấy câu hỏi theo lớp học và phân trang
+  getExams(pageIndex: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+
+    // Thực hiện GET request đến API
+    return this.http.get(`${this.API_URL}exam/getExamsByClass`, { params });
+  }
+
+  deleteExam(id: string): Observable<any> {
+    const url = `${this.API_URL}exam/${id}`;
+    return this.http.delete(url);
+  }
+
+
+
+  updateExam(questionId: string, title: string, description: string): Observable<any> {
+    const url = `${this.API_URL}exam/update/${questionId}`;
+    const payload = {
+      title,
+      description,
+    };
+    return this.http.put(url, payload);
+  }
+
+  submitExam(submissions: any[]): Observable<any> {
+    const url = `${this.API_URL}submission/submit`;
+    return this.http.post(url, submissions);
+  }
+
+  getStudents(pageIndex: number, pageSize: number): Observable<any> {
+    return this.http.get(`${this.API_URL}User?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  }
+
+  getSubmittedLessons(studentId: string): Observable<any> {
+    const url = `${this.API_URL}submissions/student/${studentId}`;
+    return this.http.get<any>(url);
+  }
 }

@@ -89,6 +89,13 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("tokenUser", response.token);
         }
 
+        const userData = response.data;
+
+        // Lưu ID người dùng vào localStorage
+        if (userData && userData.id) {
+          localStorage.setItem('userId', userData.id);
+        }
+
         // Điều hướng tới dashboard
         this.router.navigate(["dashboard"]);
       },

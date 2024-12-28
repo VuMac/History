@@ -1,1 +1,97 @@
-<p>quanlycauhoi works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Quản lý bài học</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                                Câu hỏi
+                            </th>
+                            <th>
+                                Đáp án A
+                            </th>
+                            <th>
+                                Đáp án B
+                            </th>
+                            <th>
+                                Đáp án C
+                            </th>
+                            <th>
+                                Đáp án D
+                            </th>
+                            <th class="text-right">
+                                Thao tác
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let exam of exams">
+                                <td>{{ exam.title }}</td>
+                                <td>{{ exam.answers[0] }}</td>
+                                <td>{{ exam.answers[1] }}</td>
+                                <td>{{ exam.answers[2] }}</td>
+                                <td>{{ exam.answers[3] }}</td>
+                                <td class="text-right">
+                                    <!-- Nút sửa -->
+                                    <button (click)="editExam(exam)" pButton pRipple type="button"
+                                        icon="pi pi-pencil" class="p-button-rounded p-button-warning"
+                                        pTooltip="Sửa câu hỏi">
+                                    </button>
+
+                                    <!-- Nút xóa -->
+                                    <button (click)="deleteExam(exam.id)" pButton pRipple type="button"
+                                        icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                        style="margin-left: 10px;" pTooltip="Xóa câu hỏi">
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Phân trang -->
+                <div class="pagination mt-3">
+                    <button class="btn btn-primary" (click)="prevPage()" [disabled]="pageIndex === 1">
+                        Trang trước
+                    </button>
+                    <button class="btn btn-primary" (click)="nextPage()" [disabled]="pageIndex === totalPages">
+                        Trang sau
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Sửa câu hỏi" [(visible)]="displayEditDialog" [style]="{ width: '50vw' }" [modal]="true">
+    <div *ngIf="selectedExam">
+      <div class="form-group">
+        <label>Câu hỏi:</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedExam.title" placeholder="Nhập câu hỏi" />
+      </div>
+      <div class="form-group">
+        <label>Đáp án A:</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedExam.answers[0]" placeholder="Nhập đáp án A" />
+      </div>
+      <div class="form-group">
+        <label>Đáp án B:</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedExam.answers[1]" placeholder="Nhập đáp án B" />
+      </div>
+      <div class="form-group">
+        <label>Đáp án C:</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedExam.answers[2]" placeholder="Nhập đáp án C" />
+      </div>
+      <div class="form-group">
+        <label>Đáp án D:</label>
+        <input type="text" class="form-control" [(ngModel)]="selectedExam.answers[3]" placeholder="Nhập đáp án D" />
+      </div>
+      <div class="text-right">
+        <button class="btn btn-primary" (click)="updateExam()">Cập nhật</button>
+        <button class="btn btn-secondary" (click)="displayEditDialog = false">Hủy</button>
+      </div>
+    </div>
+  </p-dialog>
+  
+  

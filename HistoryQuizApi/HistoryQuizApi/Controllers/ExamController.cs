@@ -17,6 +17,19 @@ namespace HistoryQuizApi.Controllers
             _examService = examService;
         }
 
+        [HttpGet("getExamsByClass")]
+        public async Task<IActionResult> GetExamsByClassWithPagination( int pageIndex = 1, int pageSize = 10)
+        {
+            var exams = await _examService.GetAllExamsWithPagination(pageIndex, pageSize);
+
+            if (exams == null || !exams.Any())
+            {
+                return NotFound("Không tìm thấy câu hỏi nào cho lớp học này.");
+            }
+
+            return Ok(exams);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> AddQuestionToLesson([FromBody] ExamRequest request)
         {

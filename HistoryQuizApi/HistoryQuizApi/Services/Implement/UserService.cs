@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Models.Data;
+﻿using HistoryQuizApi.Controllers.Result;
+using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Repository.Interface;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
@@ -144,5 +145,23 @@ public class UserService : IUserService
     {
        
         return _userRepository.registerClassForuser(idUser, idClass);
+    }
+
+    public async Task<PagedResult<User>> GetStudentsWithPaginationAsync(int pageIndex, int pageSize)
+    {
+        var totalStudents = await _context.User.CountAsync();
+
+        var students = await _context.User
+            .Skip(pageIndex * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResult<User>
+        {
+            Items = students,
+            TotalCount = totalStudents,
+            PageIndex = pageIndex,
+            PageSize = pageSize
+        };
     }
 }
