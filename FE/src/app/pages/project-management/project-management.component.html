@@ -35,23 +35,28 @@
                 <td class="text-right">
                   <!-- Nút xem chi tiết -->
                   <button (click)="clicktoDetail(item)" pButton pRipple type="button" icon="pi pi-user"
-                    class="p-button-rounded p-button-info" pTooltip="Xem chi tiết bài học"></button>
+                    class="p-button-rounded p-button-info" pTooltip="Xem chi tiết bài học">
+                  </button>
 
-                  <!-- Nút thêm bài học -->
-                  <button (click)="addLesson(item)" pButton pRipple type="button" icon="pi pi-plus"
+                  <!-- Nút thêm câu hỏi -->
+                  <button (click)="addQuestionToLesson(item)" pButton pRipple type="button" icon="pi pi-plus"
                     class="p-button-rounded p-button-success" style="margin-left: 10px;"
-                    pTooltip="Thêm câu hỏi cho bài học"></button>
-                  <!-- Nút xem bài học -->
-                  <button (click)="viewLessons(item)" pButton pRipple type="button" icon="pi pi-book"
+                    pTooltip="Thêm câu hỏi cho bài học">
+                  </button>
+
+                  <!-- Nút xem câu hỏi của bài học -->
+                  <button (click)="viewQuestionsOfLesson(item)" pButton pRipple type="button" icon="pi pi-book"
                     class="p-button-rounded p-button-warning" style="margin-left: 10px;"
-                    pTooltip="Xem câu hỏi của bài học"></button>
+                    pTooltip="Xem câu hỏi của bài học">
+                  </button>
                 </td>
+
               </tr>
             </tbody>
           </table>
         </div>
-         <!-- Phân trang -->
-         <div class="pagination mt-3">
+        <!-- Phân trang -->
+        <div class="pagination mt-3">
           <button class="btn btn-primary" (click)="previousPage()">
             Trang trước
           </button>
@@ -69,12 +74,94 @@
 <p-dialog header="Chi tiết bài học" [(visible)]="displayDetail" [style]="{ width: '50vw' }">
   <div class="form-group">
     <label>Tiêu đề:</label>
-    <input type="text" class="form-control" [(ngModel)]="modelDetail.title" readonly />
+    <input type="text" class="form-control" [(ngModel)]="modelDetail.title" />
   </div>
   <div class="form-group">
     <label>Nội dung:</label>
-    <textarea class="form-control" [(ngModel)]="modelDetail.content" readonly></textarea>
+    <textarea class="form-control" [(ngModel)]="modelDetail.content"></textarea>
+  </div>
+  <div class="form-group text-right">
+    <!-- Nút Lưu -->
+    <button type="button" pButton label="Lưu" class="p-button-success" (click)="updateLesson()"></button>
+    <!-- Nút Hủy -->
+    <button type="button" pButton label="Hủy" class="p-button-secondary" (click)="displayDetail = false"></button>
+  </div>
+</p-dialog>
+
+<!-- cau hoi -->
+<p-dialog header="Thêm câu hỏi cho bài học" [(visible)]="displayAddQuestion" [style]="{ width: '50vw' }">
+  <div>
+    <!-- ID bài học -->
+    <div>
+      <label>ID bài học:</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedLesson.id" readonly />
+    </div>
+
+    <!-- Câu hỏi -->
+    <div>
+      <label>Câu hỏi:</label>
+      <input type="text" class="form-control" [(ngModel)]="questionTitle" placeholder="Nhập câu hỏi" />
+    </div>
+
+    <!-- Đáp án A -->
+    <div>
+      <label>Đáp án A:</label>
+      <input type="text" class="form-control" [(ngModel)]="answerA" placeholder="Nhập đáp án A" />
+    </div>
+    
+    <!-- Đáp án B -->
+    <div>
+      <label>Đáp án B:</label>
+      <input type="text" class="form-control" [(ngModel)]="answerB" placeholder="Nhập đáp án B" />
+    </div>
+    
+    <!-- Đáp án C -->
+    <div>
+      <label>Đáp án C:</label>
+      <input type="text" class="form-control" [(ngModel)]="answerC" placeholder="Nhập đáp án C" />
+    </div>
+    
+    <!-- Đáp án D -->
+    <div>
+      <label>Đáp án D:</label>
+      <input type="text" class="form-control" [(ngModel)]="answerD" placeholder="Nhập đáp án D" />
+    </div>
+
+    <!-- Nút thêm câu hỏi -->
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="submit" class="btn btn-primary" (click)="submitQuestion()">Thêm câu hỏi</button>
+      </div>
+    </div>
   </div>
 </p-dialog>
 
 
+!-- Dialog hiển thị danh sách câu hỏi -->
+<p-dialog header="Danh sách câu hỏi" [(visible)]="displayQuestions" [style]="{ width: '70vw' }">
+  <div *ngIf="questions.length > 0">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Câu hỏi</th>
+          <th>Đáp án A</th>
+          <th>Đáp án B</th>
+          <th>Đáp án C</th>
+          <th>Đáp án D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of questions">
+          <td>{{ question.title }}</td>
+          <td>{{ question.answers[0] }}</td> <!-- Đáp án A -->
+          <td>{{ question.answers[1] }}</td> <!-- Đáp án B -->
+          <td>{{ question.answers[2] }}</td> <!-- Đáp án C -->
+          <td>{{ question.answers[3] }}</td> <!-- Đáp án D -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="questions.length === 0">
+    <p>Không có câu hỏi nào cho bài học này.</p>
+  </div>
+</p-dialog>

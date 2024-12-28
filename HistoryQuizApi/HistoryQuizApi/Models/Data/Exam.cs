@@ -2,6 +2,13 @@
 
 namespace HistoryQuizApi.Models.Data
 {
+    public class ExamRequest
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public Guid LessonId { get; set; }
+    }
     public class Exam
     {
         // Primary key

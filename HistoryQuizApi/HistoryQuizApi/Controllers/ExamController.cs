@@ -1,4 +1,5 @@
 ﻿using HistoryQuizApi.Models.Data;
+using HistoryQuizApi.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,81 +7,55 @@ using Microsoft.EntityFrameworkCore;
 namespace HistoryQuizApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/exam")]
     public class ExamController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IExamService _examService;
 
-        public ExamController(AppDbContext context)
+        public ExamController(IExamService examService)
         {
-            _context = context;
+            _examService = examService;
         }
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetAllExams()
-        {
-            var exams = await _context.Exams.ToListAsync();
-            return Ok(exams);
-        }
-        [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetExamById(Guid id)
-        {
-            var exam = await _context.Exams.FindAsync(id);
-            if (exam == null)
-            {
-                return NotFound();
-            }
-            return Ok(exam);
-        }
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> CreateExam(Exam exam)
-        {
-            exam.Id = Guid.NewGuid();
-            await _context.Exams.AddAsync(exam);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetExamById), new { id = exam.Id }, exam);
-        }
-        [Authorize]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExam(Guid id, Exam exam)
-        {
-            if (id != exam.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(exam).State = EntityState.Modified;
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Exams.Any(e => e.Id == id))
-                {
-                    return NotFound();
-                }
-                throw;
-            }
-
-            return NoContent();
-        }
-        [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExam(Guid id)
+        [HttpPost("create")]
+        public async Task<IActionResult> AddQuestionToLesson([FromBody] ExamRequest request)
         {
-            var exam = await _context.Exams.FindAsync(id);
-            if (exam == null)
-            {
-                return NotFound();
-            }
+            var result = await _examService.AddQuestionToLessonAsync(request.LessonId, request.Title, request.Description);
+            if (result)
+                return Ok();
+            return BadRequest("Thêm câu hỏi không thành công");
+        }
 
-            _context.Exams.Remove(exam);
-            await _context.SaveChangesAsync();
-            return NoContent();
+        [HttpGet("getByLesson/{lessonId}")]
+        public async Task<IActionResult> GetQuestionsByLessonId(Guid lessonId)
+        {
+            var questions = await _examService.GetQuestionsByLessonIdAsync(lessonId);
+            return Ok(questions);
+        }
+
+        [HttpPut("update/{questionId}")]
+        public async Task<IActionResult> UpdateQuestion(string questionId, [FromBody] ExamRequest request)
+        {
+            var result = await _examService.UpdateQuestionAsync(questionId, request.Title, request.Description);
+            if (result)
+                return Ok();
+            return NotFound("Câu hỏi không tồn tại");
+        }
+
+        [HttpDelete("delete/{questionId}")]
+        public async Task<IActionResult> DeleteQuestion(string questionId)
+        {
+            var result = await _examService.DeleteQuestionAsync(questionId);
+            if (result)
+                return Ok();
+            return NotFound("Câu hỏi không tồn tại");
         }
     }
 
+    public class ExamRequest
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public Guid LessonId { get; set; }
+    }
 }

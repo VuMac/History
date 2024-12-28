@@ -7,6 +7,7 @@ namespace HistoryQuizApi.Models.Data
     public class LessonRequest
     {
         // Primary key
+        public Guid id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
       
@@ -29,7 +30,7 @@ namespace HistoryQuizApi.Models.Data
         // Navigation property for ClassHistory
         public ClassHistory ClassHistory { get; set; }
 
-        public Exam Exam { get; set; }
+        public ICollection<Exam> Exams { get; set; }
         public ICollection<Submission> Submissions { get; set; }
 
 

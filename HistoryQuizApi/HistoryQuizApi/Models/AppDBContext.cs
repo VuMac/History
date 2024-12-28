@@ -22,9 +22,9 @@ public class AppDbContext : DbContext
            .HasForeignKey(l => l.ClassHistoryId);
 
         modelBuilder.Entity<Lesson>()
-            .HasOne(l => l.Exam)
-            .WithOne(e => e.Lesson)
-            .HasForeignKey<Exam>(e => e.LessonId);
+     .HasMany(l => l.Exams)  // Một Lesson có nhiều Exam
+     .WithOne(e => e.Lesson) // Mỗi Exam có một Lesson
+     .HasForeignKey(e => e.LessonId); // Khóa ngoại trong bảng Exam
 
         modelBuilder.Entity<Submission>()
             .HasOne(s => s.Exam)

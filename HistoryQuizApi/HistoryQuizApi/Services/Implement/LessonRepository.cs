@@ -52,9 +52,19 @@ namespace HistoryQuizApi.Services.Implement
             await _context.Lessons.AddAsync(lesson);
         }
 
-        public async Task UpdateAsync(Lesson lesson)
+        public async Task UpdateAsync(LessonRequest lesson)
         {
-            _context.Lessons.Update(lesson);
+            try 
+            {
+               var a = _context.Lessons.FirstOrDefault(x => x.Id.Equals(lesson.id));
+                a.Title = lesson.Title;
+                a.Content = lesson.Content;
+                _context.Lessons.Update(a);
+                await _context.SaveChangesAsync();
+            }catch(Exception e)
+            {
+
+            }
         }
 
         public async Task DeleteAsync(Lesson lesson)

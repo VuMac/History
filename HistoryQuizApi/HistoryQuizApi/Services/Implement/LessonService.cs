@@ -45,7 +45,7 @@ namespace HistoryQuizApi.Services.Implement
            
         }
 
-        public async Task UpdateLessonAsync(Lesson lesson)
+        public async Task UpdateLessonAsync(LessonRequest lesson)
         {
             await _repository.UpdateAsync(lesson);
             await _repository.SaveChangesAsync();

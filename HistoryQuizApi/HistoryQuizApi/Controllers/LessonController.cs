@@ -30,6 +30,20 @@ namespace HistoryQuizApi.Controllers
             return Ok(lessons);
         }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateLesson(LessonRequest classHistory)
+        {
+            try
+            {
+                await _service.UpdateLessonAsync(classHistory);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
         //s [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> CreateLessons(LessonRequest lesson,Guid idClass)
