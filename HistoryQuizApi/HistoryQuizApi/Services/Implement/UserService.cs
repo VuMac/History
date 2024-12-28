@@ -147,21 +147,11 @@ public class UserService : IUserService
         return _userRepository.registerClassForuser(idUser, idClass);
     }
 
-    public async Task<PagedResult<User>> GetStudentsWithPaginationAsync(int pageIndex, int pageSize)
+    // Lấy học sinh với phân trang
+    public async Task<(IEnumerable<User> students, int totalCount)> GetStudentsWithPaginationAsync(int pageIndex, int pageSize)
     {
-        var totalStudents = await _context.User.CountAsync();
-
-        var students = await _context.User
-            .Skip(pageIndex * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
-
-        return new PagedResult<User>
-        {
-            Items = students,
-            TotalCount = totalStudents,
-            PageIndex = pageIndex,
-            PageSize = pageSize
-        };
+        return await _userRepository.GetStudentsWithPaginationAsync(pageIndex, pageSize);
     }
+
+    
 }

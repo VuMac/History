@@ -14,7 +14,7 @@ public interface IUserService
 
     Task<bool> registerClassForUser(Guid idUser, Guid idClass);
 
-    Task<PagedResult<User>> GetStudentsWithPaginationAsync(int pageIndex, int pageSize);
+    Task<(IEnumerable<User> students, int totalCount)> GetStudentsWithPaginationAsync(int pageIndex, int pageSize);
 
 
 }

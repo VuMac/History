@@ -15,6 +15,8 @@ namespace HistoryQuizApi.Repository.Interface
         Task<ServiceResult> ResetPasswordAsync(string token, string newPassword);
 
         Task<bool> registerClassForuser(Guid idUser, Guid idClass);
-        
+
+        Task<(IEnumerable<User> students, int totalCount)> GetStudentsWithPaginationAsync(int pageIndex, int pageSize);
+
     }
 }

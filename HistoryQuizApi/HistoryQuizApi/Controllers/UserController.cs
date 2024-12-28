@@ -105,9 +105,16 @@ namespace HistoryQuizApi.Controllers
         }
 
         [HttpGet("students")]
-        public async Task<IActionResult> GetStudents([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetStudents(int pageIndex = 1, int pageSize = 10)
         {
-            var result = await _userService.GetStudentsWithPaginationAsync(pageIndex, pageSize);
+            var (students, totalCount) = await _userService.GetStudentsWithPaginationAsync(pageIndex, pageSize);
+
+            var result = new
+            {
+                Students = students,
+                TotalCount = totalCount
+            };
+
             return Ok(result);
         }
 

@@ -1,4 +1,5 @@
-﻿using HistoryQuizApi.Models.Data;
+﻿using HistoryQuizApi.Controllers.Result;
+using HistoryQuizApi.Models.Data;
 using HistoryQuizApi.Repository.Interface;
 using HistoryQuizApi.Shared.DTO;
 using HistoryQuizApi.Shared.ResultModel;
@@ -129,6 +130,18 @@ namespace HistoryQuizApi.Repository.Implement
                 return false;
             }
             return true;
+        }
+
+        public async Task<(IEnumerable<User> students, int totalCount)> GetStudentsWithPaginationAsync(int pageIndex, int pageSize)
+        {
+            var totalCount = await _context.User.CountAsync();
+
+            var students = await _context.User
+                .Skip((pageIndex - 1) * pageSize)  // Tính toán phần tử bắt đầu dựa trên trang hiện tại
+                .Take(pageSize)  // Lấy số lượng học sinh theo kích thước trang
+                .ToListAsync();
+
+            return (students, totalCount);
         }
     }
   
